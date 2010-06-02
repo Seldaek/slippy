@@ -1,0 +1,33 @@
+Slippy - HTML Slides
+====================
+
+Contribute
+----------
+
+If you like this piece of software, please consider contributing back with Flattr: 
+
+<a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a>
+
+Usage
+-----
+
+Navigate, double click anywhere, press space or press the left and right arrow keys
+
+Go to a slide directly, press number keys and then enter
+
+Review all slides, press escape, tab or delete then click on a slide to go straight to it
+
+Author
+------
+
+Jordi Boggiano - j.boggiano@seld.be - http://twitter.com/seldaek
+
+License
+-------
+
+GPLv3 - see the src/LICENSE file for details
+
+Compatibility
+-------------
+
+It should work with all browsers, except for the overview function that does not work in IE8 and below.
