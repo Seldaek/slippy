@@ -27,7 +27,7 @@ Review all slides, press escape, tab or delete then click on a slide to go strai
 Author
 ------
 
-Jordi Boggiano - j.boggiano@seld.be - http://twitter.com/seldaek
+Jordi Boggiano - <j.boggiano@seld.be> - <http://twitter.com/seldaek>
 
 License
 -------
