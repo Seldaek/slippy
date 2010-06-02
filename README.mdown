@@ -1,10 +1,17 @@
 Slippy - HTML Slides
 ====================
 
+Demo / Documentation
+--------------------
+
+See the example slide deck live on [slides.seld.be][1]
+
+[1] http://slides.seld.be/?file=2010-05-30+Example.html
+
 Contribute
 ----------
 
-If you like this piece of software, please consider contributing back with Flattr: 
+If you like this piece of software, please consider contributing back with Flattr:
 
 <a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a>
 
