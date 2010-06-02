@@ -1,0 +1,252 @@
+/**
+ * Slippy
+ * Copyright (C) 2010, Jordi Boggiano
+ * http://seld.be/ - j.boggiano@seld.be
+ *
+ * Licensed under the GPLv3
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * Version: 0.9.0
+ */
+
+html, body {
+    background: #000;
+    font: 25px Tahoma, Verdana, sans-serif;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    background: inherit;
+    overflow: hidden;
+}
+
+body.overview {
+    overflow: auto;
+}
+
+a, a:link, a:active, a:visited {
+    color: #ffa;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.evalLink {
+    color: #faa;
+    float: right;
+    margin-top: -.5em;
+    margin-right: .3em;
+    font-size: .8em;
+}
+
+.slide {
+    width: 900px;
+    height: 700px;
+    margin-top: -350px;
+    margin-left: -450px;
+    -moz-border-radius: 30px 0;
+    -webkit-border-radius: 30px 0;
+    border-radius: 30px 0;
+    background: #222;
+    position: absolute;
+    top: 50%;
+    left: -100%;
+}
+
+.slide.overview {
+    float: left;
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    margin: 20px;
+    -moz-transform: scale(0.3, 0.3);
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scale(0.3, 0.3);
+    -webkit-transform-origin: 0 0;
+    -o-transform: scale(0.3, 0.3);
+    -o-transform-origin: 0 0;
+    opacity: 0.5;
+}
+.slide.overview:hover {
+    opacity: 1;
+}
+
+.overviewWrapper {
+    width: 270px;
+    height: 210px;
+    float: left;
+    margin: 20px;
+}
+
+.slideContent {
+    padding: 20px 30px;
+    height: 660px;
+    position: relative;
+}
+
+.vcenter {
+    position:absolute;
+    top: 50%;
+    left: 30px;
+    width: 840px;
+}
+
+.footer {
+    -moz-border-radius: 10px 0 30px;
+    -webkit-border-radius: 10px 0 30px;
+    border-radius: 10px 0 30px;
+    position: absolute;
+    top: 700px;
+    left: 0;
+    padding: 20px 30px 20px 30px;
+    width: 840px;
+    text-align: center;
+    font-size: .7em;
+    background: #333;
+}
+
+.left {
+    float: left;
+    clear: left;
+}
+
+.right {
+    float: right;
+    clear: right;
+}
+
+.slideDisplay {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #aaa;
+    font-size:.8em;
+}
+
+h1, h2, h3, h4 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+h2 {
+    margin-bottom: 5px;
+    font-size: 1.4em;
+}
+
+h3 {
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+h4 {
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+li {
+    font-size: 1.2em;
+}
+
+.slideContent .syntaxhighlighter {
+    clear: both;
+}
+.slideContent .syntaxhighlighter .line .number {
+    width: 1.5em !important;
+}
+.slideContent .syntaxhighlighter .line .number code {
+    width: 1.3em !important;
+    padding-right: .2em !important;
+}
+
+a[rel=src] {
+    font-size: .6em;
+}
+a[rel=src]:before {
+    content: "ref:";
+}
+
+.switcherDigits {
+    color: #00ff00;
+    font: bold 2em "Courier New", Courier, fixed, sans-serif;
+    margin: 20px;
+}
+
+.alertWrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    z-index: 10;
+}
+* html .alertWrapper {
+    position: absolute;
+}
+
+.alert {
+    position: relative;
+    display: block;
+    padding: 6px;
+    margin: 0 0 12px 0;
+    border: 2px solid #999;
+    background: #333;
+    color: #eee;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+.alert p {
+    margin:0;
+}
+
+@media print {
+    @page {
+        size: landscape;
+    }
+
+    .slide {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        page-break-after: always;
+        page-break-inside: avoid;
+        margin: 10px 0;
+    }
+
+    .slide, .slideContent, body, html {
+        width: auto;
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+    .footer {
+        width: 97%;
+        padding-left:0;
+        padding-right:0;
+        margin-left: 20px;
+        margin-right: 20px;
+        background: 0;
+    }
+
+
+    .lastslide {
+        page-break-after: never;
+    }
+
+    html, body {
+        overflow: auto;
+    }
+
+    .backcode {
+        display: none;
+    }
+}
