@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example Slide Deck</title>
-        <meta name="author" content="Jimmy Boy" />
-        <meta name="email" content="jimmy@example.org" />
+        <title>Slippy Documentation</title>
+        <meta name="author" content="Jordi Boggiano" />
+        <meta name="email" content="j.boggiano@seld.be" />
         <meta name="date" content="2010-05-30" />
         <meta name="syntax_highlighter" content="FadeToGrey" />
     </head>
     <body>
         <div class="slide">
+            <h1>Welcome to Slippy</h1>
+            <h2>Usage</h2>
+            <ul>
+                <li>Navigation: [Left]/[Right] arrows to move, [Space] or [Double Click] to go to next slide</li>
+                <li>Overview: [ESC]/[Del]/[Tab] to view, [Click] to pick one slide</li>
+                <li>Jump: Press [0-9] keys followed by [Enter] to go straight to one slide</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h1>H1's are centered by default</h1>
             <div class="vcenter">
-                <h2>Foo</h2>
+                <h2>The class "vcenter" on anything</h2>
                 <ul>
-                    <li>Foo</li>
+                    <li>centers it</li>
+                    <li>vertically</li>
                 </ul>
             </div>
         </div>
 
         <div class="slide">
-            <h1 class="vcenter">Foo</h1>
-        </div>
-
-        <div class="slide">
-            <h1>Title</h1>
+            <h1>Syntax Highlighting</h1>
+            <p>Code is just pre tags with class="brush: &lt;language&gt;"</p>
             <p>The eval class combined with the js brush makes that Execute link appear on the right</p>
             <pre class="brush: js eval">
                 // in eval'd block, slide is the current slide
@@ -30,22 +39,24 @@
                 // and node is the code block
                 $(node).css('opacity', '.1');
             </pre>
+            <p>Nifty feature for JS devs doing presentations</p>
         </div>
 
         <div class="slide">
-            <h1>Title</h1>
+            <h1>Syntax Highlighting</h1>
             <pre class="brush: php">
                 function foo($var) {
                     // this is some php code
                 }
             </pre>
+            <p>That's it for now, enjoy!</p>
         </div>
 
         <div class="footer">
-            <span class="left">Jimmy Boy</span>
-            <span class="right">Some <a href="http://example.org/">link</a></span>
-            <span class="left">Some <a href="http://example.org/">link</a></span>
-            <span class="right">Some <a href="http://example.org/">link</a></span>
+            <span class="left">Jordi Boggiano</span>
+            <span class="right">Slippy Home @ <a href="http://github.com/Seldaek/slippy/">github</a></span>
+            <span class="left">My Blog <a href="http://seld.be/">seld.be</a></span>
+            <span class="right">Twitter <a href="http://twitter.com/seldaek">@seldaek</a></span>
         </div>
     </body>
 </html>
