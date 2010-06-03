@@ -219,7 +219,6 @@ a[rel=src]:before {
         left: auto !important;
         page-break-after: always;
         page-break-inside: avoid;
-        margin: 10px 0;
     }
 
     .slide, .slideContent, body, html {
@@ -236,7 +235,6 @@ a[rel=src]:before {
         margin-right: 20px;
         background: 0;
     }
-
 
     .lastslide {
         page-break-after: never;

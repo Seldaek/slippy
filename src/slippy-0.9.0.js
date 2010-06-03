@@ -48,7 +48,11 @@
         node = $(this).next('.syntaxhighlighter')[0];
         code = node;
         alert = $.alert;
-        eval($(this).data('src'));
+        try {
+            eval($(this).data('src'));
+        } catch (error) {
+            $.alert('Error: ' + error.message);
+        }
     };
 
     /**
@@ -117,9 +121,11 @@
 
             default:
                 // handle numkeys for direct access
-                if (e.keyCode >= 96 && e.keyCode <= 105) {
+                if ((e.keyCode >= 96 && e.keyCode <= 105 && (e.keyCode -= 96))
+                    || (e.keyCode >= 48 && e.keyCode <= 57 && (e.keyCode -= 48))
+                ) {
                     targetSlide *= 10;
-                    targetSlide += e.keyCode - 96;
+                    targetSlide += e.keyCode;
                     if (!switcher) {
                         switcher = $('<div/>').addClass('switcherDigits').prependTo('body');
                     }
@@ -158,7 +164,6 @@
         if (curSlide !== undefined) {
             $(slides[curSlide]).animate({left: '-50%'}, animLen);
         }
-        // TODO make that a setslide and display the slide number somewhere on screen
         setSlide(target);
         $(slides[curSlide]).css('left', '150%').animate({left: '50%'}, animLen);
         $.history.load(curSlide+1);
@@ -196,7 +201,6 @@
                 curSlide = -1;
                 nextSlide();
             }
-            $.alertErrors();
         }
     });
 })(jQuery);
@@ -218,10 +222,5 @@
                     $(this).remove();
                 });
         },
-        alertErrors: function () {
-            window.onerror = function(msg, url, line) {
-                $.alert("Error: "+msg);
-            };
-        }
     });
 })(jQuery);
