@@ -32,6 +32,8 @@ Jordi Boggiano - <j.boggiano@seld.be> - <http://twitter.com/seldaek>
 License
 -------
 
+Slippy itself is licensed under the GPLv3 - However, your slides and style files are yours and you may dispose of them as you see fit. I would obviously encourage you to share them, but there is no obligation whatsoever.
+
 GPLv3 - see the src/LICENSE file for details
 
 Compatibility
