@@ -261,7 +261,11 @@
 
             $(document)
                 .dblclick(nextSlide)
-                .keyup(keyboardNav);
+                .keyup(keyboardNav)
+                .swipe({
+                    swipeLeft: nextSlide,
+                    swipeRight: prevSlide
+                });
             $(window).resize(autoSize.all);
 
             autoSize.all(true);
@@ -304,5 +308,74 @@
             }
         });
         alerts = [];
+    };
+})(jQuery);
+
+/**
+ * Touch handling
+ *
+ * loosely based on jSwipe by Ryan Scherf (www.ryanscherf.com)
+ */
+(function($) {
+    $.fn.swipe = function(options) {
+        var defaults, options;
+
+        defaults = {
+            threshold: {
+                x: 60,
+                y: 30
+            },
+            swipeLeft: null,
+            swipeRight: null,
+            preventDefaultEvents: true
+        };
+
+        options = $.extend(defaults, options);
+
+        return this.each(function() {
+            // Private variables for each element
+            var originalCoord, finalCoord;
+
+            originalCoord = { x: 0, y: 0 };
+            finalCoord = { x: 0, y: 0 };
+
+            function touchStart(e) {
+                if (options.preventDefaultEvents) { e.preventDefault(); }
+                originalCoord.x = e.targetTouches[0].pageX
+                originalCoord.y = e.targetTouches[0].pageY
+            }
+
+            function touchMove(e) {
+                if (options.preventDefaultEvents) { e.preventDefault(); }
+                finalCoord.x = event.targetTouches[0].pageX // Updated X,Y coordinates
+                finalCoord.y = event.targetTouches[0].pageY
+            }
+
+            function touchEnd(event) {
+                var changeY, changeX;
+                if (options.preventDefaultEvents) { e.preventDefault(); }
+                changeY = originalCoord.y - finalCoord.y;
+
+                if (Math.abs(changeY) < options.threshold.y) {
+                    changeX = originalCoord.x - finalCoord.x;
+
+                    if (changeX > options.threshold.x && options.swipeLeft !== null) {
+                        options.swipeLeft();
+                    }
+                    if (changeX < -1*options.threshold.x && options.swipeRight !== null) {
+                        options.swipeRight();
+                    }
+                }
+            }
+
+            function touchCancel(event) {
+                if (options.preventDefaultEvents) { e.preventDefault(); }
+            }
+
+            $(this).bind("touchstart", touchStart)
+                .bind("touchmove", touchMove)
+                .bind("touchend", touchEnd)
+                .bind("touchcancel", touchCancel);
+        });
     };
 })(jQuery);
