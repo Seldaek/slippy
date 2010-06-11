@@ -9,9 +9,9 @@
 /** CSS Reset - Credits to Eric Meyer*/
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse; border-spacing:0}
 
+/** Core */
 html, body {
     background: #000;
-    font: 25px Tahoma, Verdana, sans-serif;
     color: #fff;
     padding: 0;
     margin: 0;
@@ -23,6 +23,7 @@ body {
     vertical-align: middle;
     background: inherit;
     overflow: hidden;
+    font: 25px Tahoma, Verdana, sans-serif;
 }
 
 body.overview {
@@ -57,17 +58,18 @@ a.evalLink {
     left: -100%;
 }
 
+/** Overview screen */
 .slide.overview {
     float: left;
     position: relative;
     top: auto !important;
     left: auto !important;
-    margin: 20px;
-    -moz-transform: scale(0.3, 0.3);
+    margin: 2% !important;
+    -moz-transform: scale(0.2, 0.2);
     -moz-transform-origin: 0 0;
-    -webkit-transform: scale(0.3, 0.3);
+    -webkit-transform: scale(0.2, 0.2);
     -webkit-transform-origin: 0 0;
-    -o-transform: scale(0.3, 0.3);
+    -o-transform: scale(0.2, 0.2);
     -o-transform-origin: 0 0;
     opacity: 0.5;
 }
@@ -76,39 +78,29 @@ a.evalLink {
 }
 
 .overviewWrapper {
-    width: 270px;
-    height: 210px;
     float: left;
-    margin: 20px;
-}
-
-.slideContent {
-    padding: 20px 30px;
-    height: 660px;
+    margin: 2%;
     position: relative;
 }
 
-.vcenter {
-    position:absolute;
-    top: 50%;
-    left: 30px;
-    width: 840px;
-}
-
+/** Footer */
 .footer {
     -moz-border-radius: 10px 0 30px;
     -webkit-border-radius: 10px 0 30px;
     border-radius: 10px 0 30px;
     position: absolute;
-    top: 700px;
+    bottom: 0;
     left: 0;
-    padding: 20px 30px 20px 30px;
-    width: 840px;
+    width: 100%;
     text-align: center;
     font-size: .7em;
     background: #333;
 }
+.footerContent {
+    padding: 1.2em;
+}
 
+/** Helper classes */
 .left {
     float: left;
     clear: left;
@@ -119,6 +111,22 @@ a.evalLink {
     clear: right;
 }
 
+.defloat {
+    clear: both;
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.vcenter {
+    position:absolute;
+    top: 50%;
+    left: 30px;
+    width: 100%;
+}
+
+/** Current slide indicator */
 .slideDisplay {
     position: absolute;
     right: 10px;
@@ -127,6 +135,7 @@ a.evalLink {
     font-size:.8em;
 }
 
+/** Specific element styling */
 h1, h2, h3, h4 {
     margin: 0 0 10px;
     font-size: 1.5em;
@@ -157,6 +166,13 @@ li {
     font-size: 1.2em;
 }
 
+/** Slide content div */
+.slideContent {
+    padding: 0 5%;
+    height: 660px;
+    position: relative;
+}
+
 .slideContent .syntaxhighlighter {
     clear: both;
 }
@@ -168,6 +184,7 @@ li {
     padding-right: .2em !important;
 }
 
+/** References links */
 a[rel=src] {
     font-size: .6em;
 }
@@ -175,17 +192,19 @@ a[rel=src]:before {
     content: "ref:";
 }
 
+/** TV Switcher */
 .switcherDigits {
     color: #00ff00;
     font: bold 2em "Courier New", Courier, fixed, sans-serif;
     margin: 20px;
 }
 
+/** Alerts */
 .alertWrapper {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px;
+    bottom: 2%;
+    right: 2%;
+    width: 15%;
     z-index: 10;
 }
 * html .alertWrapper {
@@ -195,7 +214,7 @@ a[rel=src]:before {
 .alert {
     position: relative;
     display: block;
-    padding: 6px;
+    padding: .3em;
     margin: 0 0 12px 0;
     border: 2px solid #999;
     background: #333;
@@ -208,6 +227,7 @@ a[rel=src]:before {
     margin:0;
 }
 
+/** Print */
 @media print {
     @page {
         size: landscape;
