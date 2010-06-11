@@ -15,19 +15,30 @@ If you like this piece of software, please consider contributing back with Flatt
 
 <a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a>
 
+Code contributions or ideas are obviously also much welcome.
+
 Usage
 -----
 
-Navigate, double click anywhere, press space or press the left and right arrow keys
+Navigate, double click anywhere, press space or use the left and right arrow keys
 
 Go to a slide directly, press number keys and then enter
 
-Review all slides, press escape, tab or delete then click on a slide to go straight to it
+Get an overview, press escape, tab or delete then click on a slide to go straight to it
 
 Author
 ------
 
-Jordi Boggiano - <j.boggiano@seld.be> - <http://twitter.com/seldaek>
+Jordi Boggiano - <j.boggiano@seld.be>
+<http://seld.be/> - <http://twitter.com/seldaek>
+
+Changelog
+---------
+
+- 1.0.0
+  - JS Alerts are now cleared when changing slide, but stay visible longer
+- 0.9.0
+  - Initial Public Release
 
 License
 -------
