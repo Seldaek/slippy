@@ -3,8 +3,8 @@
  * Copyright (C) 2010, Jordi Boggiano
  * http://seld.be/ - j.boggiano@seld.be
  *
- * Licensed under the GPLv3
- * http://www.gnu.org/licenses/gpl-3.0.txt
+ * Licensed under the new BSD License
+ * See the LICENSE file for details
  *
  * Version: 0.9.0
  */

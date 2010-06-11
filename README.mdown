@@ -43,9 +43,9 @@ Changelog
 License
 -------
 
-Slippy itself is licensed under the GPLv3 - However, your slides and style files are yours and you may dispose of them as you see fit. I would obviously encourage you to share them, but there is no obligation whatsoever.
+Slippy is licensed under the New BSD License, which means you can do pretty much anything you want with it - However, I encourage you to share your slides and stylesheets if you make some, but there is no obligation whatsoever.
 
-GPLv3 - see the src/LICENSE file for details
+New BSD License - see the src/LICENSE file for details
 
 Compatibility
 -------------
