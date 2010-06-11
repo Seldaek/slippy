@@ -141,6 +141,7 @@
             // handle right arrow + space
             case 32:
             case 39:
+                window.scroll(0, 0);
                 return nextSlide(e);
 
             // handle left arrow
