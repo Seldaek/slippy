@@ -37,6 +37,10 @@ Changelog
 
 - 1.0.0
   - JS Alerts are now cleared when changing slide, but stay visible longer
+  - Switched license to BSD
+  - Added swipe support on touch devices
+  - Auto-sizing to the browser dimensions
+
 - 0.9.0
   - Initial Public Release
 
