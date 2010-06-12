@@ -11,7 +11,7 @@
 
 // Slide deck module
 (function($) {
-    var slides, curSlide, animLen = 350,
+    var slides, curSlide, options,
         // methods
         buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide,
         keyboardNav, antiScroll, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind;
@@ -243,19 +243,19 @@
     })();
 
     animInForward = function(slide) {
-        $(slide).css('left', '150%').animate({left: '50%'}, animLen);
+        $(slide).css('left', '150%').animate({left: '50%'}, options.animLen);
     };
 
     animOutForward = function(slide) {
-        $(slide).animate({left: '-50%'}, animLen);
+        $(slide).animate({left: '-50%'}, options.animLen);
     };
 
     animInRewind = function(slide) {
-        $(slide).css('left', '-50%').animate({left: '50%'}, animLen);
+        $(slide).css('left', '-50%').animate({left: '50%'}, options.animLen);
     };
 
     animOutRewind = function(slide) {
-        $(slide).animate({left: '150%'}, animLen);
+        $(slide).animate({left: '150%'}, options.animLen);
     };
 
     nextSlide = function(e) {
@@ -311,7 +311,17 @@
         }
     };
 
-    $.fn.slippy = function() {
+    $.fn.slippy = function(settings) {
+        var defaults = {
+            animLen: 350,
+            animInForward: animInForward,
+            animInRewind: animInRewind,
+            animOutForward: animOutForward,
+            animOutRewind: animOutRewind
+        };
+
+        options = $.extend(defaults, settings);
+
         slides = this;
         $('.footer')
             .remove()

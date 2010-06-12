@@ -39,7 +39,15 @@
         <!-- Slippy init code -->
         <script type="text/javascript">
             $(function() {
-                $(".slide").slippy();
+                $(".slide").slippy({
+                    // settings go here
+                    // possible values are:
+                    //  - animLen, duration for default animations (0 = disabled)
+                    //  - animInForward, receives a slide and animates it
+                    //  - animInRewind, receives a slide and animates it
+                    //  - animOutForward, receives a slide and animates it
+                    //  - animOutRewind, receives a slide and animates it
+                });
                 SyntaxHighlighter.all();
             });
         </script>
