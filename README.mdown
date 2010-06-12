@@ -20,7 +20,7 @@ Code contributions or ideas are obviously also much welcome.
 Usage
 -----
 
-Navigate, double click anywhere, press space or use the left and right arrow keys
+Navigate, double click anywhere, press space or use the left/up and right/down arrow keys
 
 Go to a slide directly, press number keys and then enter
 

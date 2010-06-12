@@ -143,14 +143,16 @@
             if (e.altKey || e.ctrlKey || inOverview) { return; }
 
             switch (e.keyCode) {
-            // handle right arrow + space
+            // handle right/down arrow + space
             case 32:
             case 39:
+            case 40:
                 window.scroll(0, 0);
                 return nextSlide(e);
 
-            // handle left arrow
+            // handle left/up arrow
             case 37:
+            case 38:
                 return prevSlide(e);
 
             // handle enter
