@@ -14,7 +14,7 @@
     var slides, curSlide, animLen = 350,
         // methods
         buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide,
-        keyboardNav, urlChange, autoSize, clickNav;
+        keyboardNav, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind;
 
     /**
      * Init slides
@@ -128,7 +128,7 @@
      * Navigation
      */
     keyboardNav = (function() {
-        var targetSlide = null, switcher, timeout,
+        var targetSlide = null, switcher, timeout, inOverview,
             // methods
             cleanNav;
 
@@ -140,7 +140,7 @@
         };
 
         return function(e) {
-            if (e.altKey || e.ctrlKey) { return; }
+            if (e.altKey || e.ctrlKey || inOverview) { return; }
 
             switch (e.keyCode) {
             // handle right arrow + space
@@ -158,7 +158,6 @@
                 if (targetSlide !== null) {
                     if (slides[targetSlide-1] && curSlide !== targetSlide-1) {
                         showSlide(targetSlide-1);
-                        targetSlide = null;
                     }
                     cleanNav();
                 }
@@ -186,7 +185,9 @@
                         .unwrap()
                         .add('body')
                         .removeClass('overview');
+                    inOverview = false;
                 });
+                inOverview = true;
                 autoSize.overview();
                 break;
 
@@ -228,32 +229,59 @@
         }
     })();
 
+    animInForward = function(slide) {
+        $(slide).css('left', '150%').animate({left: '50%'}, animLen);
+    };
+
+    animOutForward = function(slide) {
+        $(slide).animate({left: '-50%'}, animLen);
+    };
+
+    animInRewind = function(slide) {
+        $(slide).css('left', '-50%').animate({left: '50%'}, animLen);
+    };
+
+    animOutRewind = function(slide) {
+        $(slide).animate({left: '150%'}, animLen);
+    };
+
     nextSlide = function(e) {
         if (slides.length < curSlide + 2) { return; }
         if (slides[curSlide]) {
-            $(slides[curSlide]).animate({left: '-50%'}, animLen);
+            animOutForward(slides[curSlide]);
         }
         setSlide(curSlide+1);
-        $(slides[curSlide]).css('left', '150%').animate({left: '50%'}, animLen);
+        animInForward(slides[curSlide]);
         $.history.load(curSlide+1);
     };
 
     prevSlide = function(e) {
         if (curSlide <= 0) { return; }
-        $(slides[curSlide]).animate({left: '150%'}, animLen);
+        animOutRewind(slides[curSlide]);
         setSlide(curSlide-1);
         if (slides[curSlide]) {
-            $(slides[curSlide]).css('left', '-50%').animate({left: '50%'}, animLen);
+            animInRewind(slides[curSlide]);
         }
         $.history.load(curSlide+1);
     };
 
     showSlide = function(target) {
-        if (curSlide !== undefined) {
-            $(slides[curSlide]).animate({left: '-50%'}, animLen);
+        var direction = 'forward';
+        if (target === curSlide) { return; }
+        if (slides[curSlide]) {
+            direction = curSlide < target ? 'forward' : 'rewind';
+            if (direction === 'forward') {
+                animOutForward(slides[curSlide]);
+            } else {
+                animOutRewind(slides[curSlide]);
+            }
         }
         setSlide(target);
-        $(slides[curSlide]).css('left', '150%').animate({left: '50%'}, animLen);
+        if (direction === 'forward') {
+            animInForward(slides[curSlide]);
+        } else {
+            animInRewind(slides[curSlide]);
+        }
         $.history.load(curSlide+1);
     };
 
@@ -270,38 +298,37 @@
         }
     };
 
-    $.fn.extend({
-        slippy: function() {
-            slides = this;
-            $('.footer')
-                .remove()
-                .wrapInner($('<div/>').addClass('footerContent'))
-                .appendTo(this);
-            $('<div/>').addClass('slideDisplay').prependTo('body');
-            this.each(buildSlide);
-            this.last().addClass('lastslide');
+    $.fn.slippy = function() {
+        slides = this;
+        $('.footer')
+            .remove()
+            .wrapInner($('<div/>').addClass('footerContent'))
+            .appendTo(this);
+        $('<div/>').addClass('slideDisplay').prependTo('body');
+        this.each(buildSlide);
+        this.last().addClass('lastslide');
 
-            $(document)
-                .click(clickNav)
-                .keyup(keyboardNav);
+        $(document)
+            .click(clickNav)
+            .keyup(keyboardNav);
 
-            slides.touch({
-                swipeLeft: nextSlide,
-                swipeRight: prevSlide,
-                tap: clickNav
-            });
+        slides.touch({
+            swipeLeft: nextSlide,
+            swipeRight: prevSlide,
+            tap: clickNav
+        });
 
-            $(window).resize(autoSize.all);
+        $(window).resize(autoSize.all);
 
-            autoSize.all(true);
+        autoSize.all(true);
 
-            $.history.init(urlChange);
-            if (curSlide === undefined) {
-                curSlide = -1;
-                nextSlide();
-            }
+        $.history.init(urlChange);
+        if (curSlide === undefined) {
+            curSlide = -1;
+            nextSlide();
         }
-    });
+    };
+
 })(jQuery);
 
 // Alert module
