@@ -223,23 +223,23 @@
         if (e.keyCode === 39) {
             window.scroll(0, 0);
         }
-    }
+    };
 
     clickNav = (function() {
         var timeout, armed = false;
 
         return function(e) {
-            if (e.target.nodeName === 'A') return;
+            if (e.target.nodeName === 'A') { return; }
             clearTimeout(timeout);
             if (armed === true) {
                 armed = false;
                 return nextSlide();
             }
             timeout = setTimeout(function() {
-                armed = false
+                armed = false;
             }, 350);
             armed = true;
-        }
+        };
     })();
 
     animInForward = function(slide) {
