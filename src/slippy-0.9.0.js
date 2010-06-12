@@ -14,7 +14,7 @@
     var slides, curSlide, animLen = 350,
         // methods
         buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide,
-        keyboardNav, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind;
+        keyboardNav, antiScroll, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind;
 
     /**
      * Init slides
@@ -212,6 +212,17 @@
         };
     })();
 
+    /**
+     * Sort of fixes a bug in firefox since it doesn't
+     * hide the content on the right properly this forces
+     * it to scroll back into position when user presses right arrow
+     */
+    antiScroll = function(e) {
+        if (e.keyCode === 39) {
+            window.scroll(0, 0);
+        }
+    }
+
     clickNav = (function() {
         var timeout, armed = false;
 
@@ -310,7 +321,8 @@
 
         $(document)
             .click(clickNav)
-            .keyup(keyboardNav);
+            .keyup(keyboardNav)
+            .keydown(antiScroll);
 
         slides.touch({
             swipeLeft: nextSlide,
