@@ -166,6 +166,11 @@ li {
     font-size: 1.2em;
 }
 
+ol, ul {
+    list-style: disc outside none;
+    margin-left: 2em;
+}
+
 /** Slide content div */
 .slideContent {
     padding: 0 5%;
