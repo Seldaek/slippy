@@ -102,6 +102,12 @@ a.evalLink {
     width: 100%;
 }
 
+.hcenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /** Current slide indicator */
 .slideDisplay {
     position: absolute;
