@@ -384,7 +384,7 @@
  */
 (function($) {
     $.fn.touch = function(options) {
-        var defaults, options;
+        var defaults;
 
         defaults = {
             threshold: {
