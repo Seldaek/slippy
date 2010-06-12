@@ -123,13 +123,13 @@
      * Navigation
      */
     keyboardNav = (function() {
-        var targetSlide = 0, switcher, timeout,
+        var targetSlide = null, switcher, timeout,
             // methods
             cleanNav;
 
         cleanNav = function() {
             clearTimeout(timeout);
-            targetSlide = 0;
+            targetSlide = null;
             switcher.remove();
             switcher = null;
         };
@@ -150,10 +150,10 @@
 
             // handle enter
             case 13:
-                if (targetSlide > 0) {
+                if (targetSlide !== null) {
                     if (slides[targetSlide-1] && curSlide !== targetSlide-1) {
                         showSlide(targetSlide-1);
-                        targetSlide = 0;
+                        targetSlide = null;
                     }
                     cleanNav();
                 }
@@ -187,8 +187,8 @@
 
             default:
                 // handle numkeys for direct access
-                if ((e.keyCode >= 96 && e.keyCode <= 105 && (e.keyCode -= 96))
-                    || (e.keyCode >= 48 && e.keyCode <= 57 && (e.keyCode -= 48))
+                if ((e.keyCode >= 96 && e.keyCode <= 105 && ((e.keyCode -= 96) || true))
+                    || (e.keyCode >= 48 && e.keyCode <= 57 && ((e.keyCode -= 48) || true))
                 ) {
                     targetSlide *= 10;
                     targetSlide += e.keyCode;
