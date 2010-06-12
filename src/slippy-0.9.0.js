@@ -14,7 +14,7 @@
     var slides, curSlide, animLen = 350,
         // methods
         buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide,
-        keyboardNav, urlChange, autoSize;
+        keyboardNav, urlChange, autoSize, clickNav;
 
     /**
      * Init slides
@@ -64,7 +64,7 @@
             calc();
 
             $('body').css('fontSize', smallestDimension/40);
-            $(slides).height(slideH)
+            slides.height(slideH)
                 .width(slideW)
                 .css('marginTop', -slideH/2)
                 .css('marginLeft', -slideW/2);
@@ -206,6 +206,23 @@
         };
     })();
 
+    clickNav = (function() {
+        var timeout, armed = false;
+
+        return function(e) {
+            if (e.target.nodeName === 'A') return;
+            clearTimeout(timeout);
+            if (armed === true) {
+                armed = false;
+                return nextSlide();
+            }
+            timeout = setTimeout(function() {
+                armed = false
+            }, 350);
+            armed = true;
+        }
+    })();
+
     nextSlide = function(e) {
         if (slides.length < curSlide + 2) { return; }
         if (slides[curSlide]) {
@@ -260,12 +277,15 @@
             this.last().addClass('lastslide');
 
             $(document)
-                .dblclick(nextSlide)
-                .keyup(keyboardNav)
-                .swipe({
-                    swipeLeft: nextSlide,
-                    swipeRight: prevSlide
-                });
+                .click(clickNav)
+                .keyup(keyboardNav);
+
+            slides.touch({
+                swipeLeft: nextSlide,
+                swipeRight: prevSlide,
+                tap: clickNav,
+            });
+
             $(window).resize(autoSize.all);
 
             autoSize.all(true);
@@ -317,7 +337,7 @@
  * loosely based on jSwipe by Ryan Scherf (www.ryanscherf.com)
  */
 (function($) {
-    $.fn.swipe = function(options) {
+    $.fn.touch = function(options) {
         var defaults, options;
 
         defaults = {
@@ -327,7 +347,7 @@
             },
             swipeLeft: null,
             swipeRight: null,
-            preventDefaultEvents: true
+            tap: null
         };
 
         options = $.extend(defaults, options);
@@ -340,42 +360,35 @@
             finalCoord = { x: 0, y: 0 };
 
             function touchStart(e) {
-                if (options.preventDefaultEvents) { e.preventDefault(); }
-                originalCoord.x = e.targetTouches[0].pageX
-                originalCoord.y = e.targetTouches[0].pageY
+                originalCoord.x = e.targetTouches[0].pageX;
+                originalCoord.y = e.targetTouches[0].pageY;
             }
 
             function touchMove(e) {
-                if (options.preventDefaultEvents) { e.preventDefault(); }
-                finalCoord.x = event.targetTouches[0].pageX // Updated X,Y coordinates
-                finalCoord.y = event.targetTouches[0].pageY
+                finalCoord.x = e.targetTouches[0].pageX;
+                finalCoord.y = e.targetTouches[0].pageY;
             }
 
-            function touchEnd(event) {
+            function touchEnd(e) {
                 var changeY, changeX;
-                if (options.preventDefaultEvents) { e.preventDefault(); }
                 changeY = originalCoord.y - finalCoord.y;
 
                 if (Math.abs(changeY) < options.threshold.y) {
                     changeX = originalCoord.x - finalCoord.x;
 
                     if (changeX > options.threshold.x && options.swipeLeft !== null) {
-                        options.swipeLeft();
-                    }
-                    if (changeX < -1*options.threshold.x && options.swipeRight !== null) {
-                        options.swipeRight();
+                        options.swipeLeft(e);
+                    } else if (changeX < -1*options.threshold.x && options.swipeRight !== null) {
+                        options.swipeRight(e);
+                    } else if (changeX < 5 && changeY < 5 && options.tap !== null) {
+                        options.tap(e);
                     }
                 }
             }
 
-            function touchCancel(event) {
-                if (options.preventDefaultEvents) { e.preventDefault(); }
-            }
-
             $(this).bind("touchstart", touchStart)
                 .bind("touchmove", touchMove)
-                .bind("touchend", touchEnd)
-                .bind("touchcancel", touchCancel);
+                .bind("touchend", touchEnd);
         });
     };
 })(jQuery);
