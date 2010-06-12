@@ -63,7 +63,7 @@
         resizeSlides = function() {
             calc();
 
-            $('body').css('fontSize', smallestDimension/24);
+            $('body').css('fontSize', smallestDimension/40);
             $(slides).height(slideH)
                 .width(slideW)
                 .css('marginTop', -slideH/2)
