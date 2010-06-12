@@ -46,7 +46,7 @@
     autoSize = (function() {
         var timeout, winW, winH, slideW, slideH, smallestDimension, ratio = 1.3,
             // methods
-            resizeSlides, resizeSlides, calc, centerVertically;
+            resizeAll, resizeOverview, calc, centerVertically;
 
         calc = function() {
             winW = $(window).width();
@@ -63,7 +63,7 @@
             }
         };
 
-        resizeSlides = function() {
+        resizeAll = function() {
             calc();
 
             $('body').css('fontSize', smallestDimension/40);
@@ -74,7 +74,9 @@
             $('.slideContent')
                 .height(slideH*0.95)
                 .css('margin', (slideH*.05).toString() + "px auto 0")
-
+            $('.slideDisplay').css('left', function(idx, el){
+                return winW;
+            });
             resizeOverview();
             centerVertically();
         };
@@ -96,10 +98,10 @@
         return {
             all: function(immediate) {
                 if (immediate === true) {
-                    return resizeSlides();
+                    return resizeAll();
                 }
                 clearTimeout(timeout);
-                timeout = setTimeout(resizeSlides, 50);
+                timeout = setTimeout(resizeAll, 50);
             },
             overview: resizeOverview,
             centerVertically: centerVertically

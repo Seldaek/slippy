@@ -11,8 +11,6 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 /** Core */
 html, body {
-    background: #000;
-    color: #fff;
     padding: 0;
     margin: 0;
 }
@@ -23,7 +21,6 @@ body {
     vertical-align: middle;
     background: inherit;
     overflow: hidden;
-    font: 25px Tahoma, Verdana, sans-serif;
 }
 
 body.overview {
@@ -31,15 +28,11 @@ body.overview {
 }
 
 a, a:link, a:active, a:visited {
-    color: #ffa;
     cursor: pointer;
-    text-decoration: none;
 }
 
 a.evalLink {
-    color: #faa;
     float: right;
-    margin-top: 0;
     margin-right: .3em;
     font-size: .8em;
 }
@@ -49,10 +42,6 @@ a.evalLink {
     height: 700px;
     margin-top: -350px;
     margin-left: -450px;
-    -moz-border-radius: 30px 0;
-    -webkit-border-radius: 30px 0;
-    border-radius: 30px 0;
-    background: #222;
     position: absolute;
     top: 50%;
     left: -100%;
@@ -71,10 +60,6 @@ a.evalLink {
     -webkit-transform-origin: 0 0;
     -o-transform: scale(0.2, 0.2);
     -o-transform-origin: 0 0;
-    opacity: 0.5;
-}
-.slide.overview:hover {
-    opacity: 1;
 }
 
 .overviewWrapper {
@@ -85,19 +70,10 @@ a.evalLink {
 
 /** Footer */
 .footer {
-    -moz-border-radius: 10px 0 30px;
-    -webkit-border-radius: 10px 0 30px;
-    border-radius: 10px 0 30px;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    text-align: center;
-    font-size: .7em;
-    background: #333;
-}
-.footerContent {
-    padding: 1.2em;
 }
 
 /** Helper classes */
@@ -129,52 +105,12 @@ a.evalLink {
 /** Current slide indicator */
 .slideDisplay {
     position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #aaa;
-    font-size:.8em;
-}
-
-/** Specific element styling */
-h1, h2, h3, h4 {
-    margin: 0 0 10px;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 20px;
-}
-
-h2 {
-    margin-bottom: 5px;
-    font-size: 1.4em;
-}
-
-h3 {
-    margin-bottom: 5px;
-    font-size: 1.2em;
-}
-
-h4 {
-    margin-bottom: 5px;
-    font-size: 1.1em;
-}
-
-li {
-    font-size: 1.2em;
-}
-
-ol, ul {
-    list-style: disc outside none;
-    margin-left: 2em;
+    margin-left: -3em;
 }
 
 /** Slide content div */
 .slideContent {
     padding: 0 5%;
-    height: 660px;
     position: relative;
 }
 
@@ -187,21 +123,6 @@ ol, ul {
 .slideContent .syntaxhighlighter .line .number code {
     width: 1.3em !important;
     padding-right: .2em !important;
-}
-
-/** References links */
-a[rel=src] {
-    font-size: .6em;
-}
-a[rel=src]:before {
-    content: "ref:";
-}
-
-/** TV Switcher */
-.switcherDigits {
-    color: #00ff00;
-    font: bold 2em "Courier New", Courier, fixed, sans-serif;
-    margin: 20px;
 }
 
 /** Alerts */
@@ -219,17 +140,9 @@ a[rel=src]:before {
 .alert {
     position: relative;
     display: block;
-    padding: .3em;
-    margin: 0 0 12px 0;
-    border: 2px solid #999;
-    background: #333;
-    color: #eee;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
 }
 .alert p {
-    margin:0;
+    margin: 0;
 }
 
 /** Print */
