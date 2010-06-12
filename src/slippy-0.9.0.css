@@ -39,7 +39,7 @@ a, a:link, a:active, a:visited {
 a.evalLink {
     color: #faa;
     float: right;
-    margin-top: -.5em;
+    margin-top: 0;
     margin-right: .3em;
     font-size: .8em;
 }
