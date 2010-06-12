@@ -38,6 +38,9 @@ Changelog
 - 1.0.0
   - JS Alerts are now cleared when changing slide, but stay visible longer
   - Switched license to BSD
+  - Slide decks files are now standalone html files that don't need php
+    - However it is recommended if you have code blocks since it will convert html special chars automatically
+    - Note that this breaks compatibility with previous slide decks, since the js/css files have to be included by hand in it now
   - Added swipe support on touch devices
   - Auto-sizing to the browser dimensions
   - Fixed bug preventing "0" to be used to switch to slides

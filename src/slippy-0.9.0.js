@@ -29,11 +29,14 @@
     };
 
     preparePreTags = function(idx, content) {
+        var whitespace;
         if ($(this).hasClass('eval')) {
             $(this)
                 .before('<a class="evalLink">Execute</a>').prev()
                 .data('src', content);
         }
+        whitespace = content.match(/\r?\n?[ \t]+/);
+        content = content.replace(new RegExp('^'+whitespace, 'gm'), '');
         return $.trim(content);
     };
 
@@ -283,7 +286,7 @@
             slides.touch({
                 swipeLeft: nextSlide,
                 swipeRight: prevSlide,
-                tap: clickNav,
+                tap: clickNav
             });
 
             $(window).resize(autoSize.all);
