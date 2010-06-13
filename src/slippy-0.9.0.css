@@ -48,7 +48,7 @@ a.evalLink {
 }
 
 /** Overview screen */
-.slide.overview {
+.overview .slide {
     float: left;
     position: relative;
     top: auto !important;
@@ -111,7 +111,12 @@ a.evalLink {
 /** Current slide indicator */
 .slideDisplay {
     position: absolute;
-    margin-left: -3em;
+    right: 0;
+    top: 0;
+}
+
+.overview .slideDisplay {
+    display: none;
 }
 
 /** Slide content div */

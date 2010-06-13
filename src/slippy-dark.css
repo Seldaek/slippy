@@ -36,10 +36,10 @@ a.evalLink {
 }
 
 /** Overview screen */
-.slide.overview {
+.overview .slide {
     opacity: 0.5;
 }
-.slide.overview:hover {
+.overview .slide:hover {
     opacity: 1;
 }
 

@@ -11,7 +11,7 @@
 
 // Slide deck module
 (function($) {
-    var slides, curSlide, options,
+    var slides, curSlide, options, inOverview,
         // methods
         buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide,
         keyboardNav, antiScroll, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind;
@@ -74,9 +74,6 @@
             $('.slideContent')
                 .height(slideH*0.95)
                 .css('margin', (slideH*.05).toString() + "px auto 0")
-            $('.slideDisplay').css('left', function(idx, el){
-                return winW;
-            });
             resizeOverview();
             centerVertically();
         };
@@ -128,7 +125,7 @@
      * Navigation
      */
     keyboardNav = (function() {
-        var targetSlide = null, switcher, timeout, inOverview,
+        var targetSlide = null, switcher, timeout,
             // methods
             cleanNav;
 
@@ -177,16 +174,15 @@
             case 27:
             case 46:
                 if ($.browser.msie < 9) { break; }
-                if (slides.hasClass('overview')) { break; }
+                if (inOverview) { break; }
                 slides.wrap($('<div/>').addClass('overviewWrapper'));
-                slides.add('body').addClass('overview');
+                $('body').addClass('overview');
                 slides.bind('click.slippyOverview', function (e) {
                     showSlide(slides.index(this));
                     slides
                         .unbind('.slippyOverview')
                         .unwrap()
-                        .add('body')
-                        .removeClass('overview');
+                    $('body').removeClass('overview');
                     inOverview = false;
                 });
                 inOverview = true;
@@ -220,8 +216,10 @@
      * it to scroll back into position when user presses right arrow
      */
     antiScroll = function(e) {
-        if (e.keyCode === 39) {
-            window.scroll(0, 0);
+        if (inOverview) {
+            window.scroll(0, window.pageYOffset);
+        } else {
+            window.scroll(0, window.pageYOffset);
         }
     };
 
@@ -333,8 +331,7 @@
 
         $(document)
             .click(clickNav)
-            .keyup(keyboardNav)
-            .keydown(antiScroll);
+            .keyup(keyboardNav);
 
         slides.touch({
             swipeLeft: nextSlide,
@@ -342,7 +339,9 @@
             tap: clickNav
         });
 
-        $(window).resize(autoSize.all);
+        $(window)
+            .resize(autoSize.all)
+            .scroll(antiScroll);
 
         autoSize.all(true);
 
