@@ -74,6 +74,15 @@
             $('.slideContent')
                 .height(slideH*0.95)
                 .css('margin', (slideH*.05).toString() + "px auto 0")
+            $('img').css('width', function(val) {
+                var ratio;
+                $el = $(this);
+                if (!$el.data('origWidth')) {
+                    $el.data('origWidth', $el.width());
+                }
+                ratio = Math.min($el.data('origWidth'), options.baseWidth) / options.baseWidth;
+                return ratio * slideW * .9;
+            });
             resizeOverview();
             centerVertically();
         };
@@ -329,6 +338,7 @@
     $.fn.slippy = function(settings) {
         var defaults = {
             animLen: 350,
+            baseWidth: 620,
             animInForward: animInForward,
             animInRewind: animInRewind,
             animOutForward: animOutForward,
