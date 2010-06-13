@@ -63,28 +63,28 @@ a.evalLink {
 
 /** Specific element styling */
 h1, h2, h3, h4 {
-    margin: 0 0 10px;
+    margin: 0 0 .5em;
     font-size: 1.5em;
     font-weight: bold;
 }
 
 h1 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 1em;
 }
 
 h2 {
-    margin-bottom: 5px;
+    margin-bottom: .25em;
     font-size: 1.4em;
 }
 
 h3 {
-    margin-bottom: 5px;
+    margin-bottom: .25em;
     font-size: 1.2em;
 }
 
 h4 {
-    margin-bottom: 5px;
+    margin-bottom: .25em;
     font-size: 1.1em;
 }
 
@@ -108,14 +108,14 @@ a[rel=src]:before {
 /** Current slide indicator */
 .slideDisplay {
     color: #aaa;
-    padding: 10px;
+    padding: 1em;
 }
 
 /** TV Switcher */
 .switcherDigits {
     color: #00ff00;
     font: bold 2em "Courier New", Courier, fixed, sans-serif;
-    margin: 20px;
+    margin: .3em;
 }
 
 /** Alerts */
