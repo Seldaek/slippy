@@ -36,11 +36,13 @@ a.evalLink {
 }
 
 /** Overview screen */
-.overview .slide {
-    opacity: 0.5;
+.overview .slide.active {
+    border: 0.5em solid #ffa;
 }
-.overview .slide:hover {
-    opacity: 1;
+.overviewWrapper:hover {
+    position: relative;
+    top: -.1em;
+    left: -.1em;
 }
 
 /** Footer */

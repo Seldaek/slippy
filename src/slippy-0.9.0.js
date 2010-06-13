@@ -298,7 +298,11 @@
 
     setSlide = function(num) {
         $.clearAlerts();
+        if (slides[curSlide]) {
+            slides.eq(curSlide).removeClass('active');
+        }
         curSlide = num;
+        slides.eq(curSlide).addClass('active');
         $('.slideDisplay').text((num+1)+'/'+slides.length);
     };
 
