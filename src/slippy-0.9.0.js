@@ -86,10 +86,13 @@
         };
 
         centerVertically = function() {
-            $('.vcenter').css('margin-top', function() {
-                var $el = $(this);
-                return "-" + (($el.innerHeight() / 2) - slideH*.05 + $el.closest('.slide').find('.footer').height()) + "px";
-            });
+            $('.vcenter')
+                .css('margin-top', function() {
+                    var $el = $(this);
+                    return "-" + (($el.innerHeight() / 2) - slideH*.05 + $el.closest('.slide').find('.footer').height()) + "px";
+                })
+                .css('width', slideW*.9)
+                .css('left', slideW*.05);
         };
 
         return {
