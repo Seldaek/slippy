@@ -140,17 +140,27 @@
             if (e.altKey || e.ctrlKey || inOverview) { return; }
 
             switch (e.keyCode) {
-            // handle right/down arrow + space
+            // handle right/down arrow + space + page down
             case 32:
+            case 34:
             case 39:
             case 40:
                 window.scroll(0, 0);
                 return nextSlide(e);
 
-            // handle left/up arrow
+            // handle left/up arrow and page up
+            case 33:
             case 37:
             case 38:
                 return prevSlide(e);
+
+            // handle home key
+            case 36:
+                return showSlide(0);
+
+            // handle end key
+            case 35:
+                return showSlide(slides.length-1);
 
             // handle enter
             case 13:

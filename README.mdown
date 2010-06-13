@@ -43,6 +43,7 @@ Changelog
   - Added swipe/double-tap support on touch devices
   - Splitted css in structural/theme stylesheets for easy customization"
   - Auto-sizing to the browser dimensions
+  - Added page up, page down support for prev/next slide, and home/end to go to the begining or end of presentaiton
   - Animations are going the right way now when using overview/direct input and going backwards
   - JS Alerts are now cleared when changing slide, but stay visible longer
   - Fixed bug preventing "0" to be used to switch to slides
