@@ -20,19 +20,22 @@ body {
 }
 
 a, a:link, a:active, a:visited {
-    color: #ffa;
+    color: #ff8;
     text-decoration: none;
 }
 
 a.evalLink {
-    color: #faa;
+    background-color: #eb1b1b;
+    color: #000;
+    margin: .2em .4em 0 0;
 }
 
 .slide {
-    -moz-border-radius: 30px 0;
-    -webkit-border-radius: 30px 0;
-    border-radius: 30px 0;
-    background: #222;
+    -moz-border-radius: 2em 0;
+    -webkit-border-radius: 2em 0;
+    border-radius: 2em 0;
+    border: .1em solid #ccc;
+    background: #242f53;
 }
 
 /** Overview screen */
@@ -47,15 +50,18 @@ a.evalLink {
 
 /** Footer */
 .footer {
-    -moz-border-radius: 10px 0 30px;
-    -webkit-border-radius: 10px 0 30px;
-    border-radius: 10px 0 30px;
+    -moz-border-radius: .8em 0 2em;
+    -webkit-border-radius: .8em 0 2em;
+    border-radius: .8em 0 2em;
+    border-top: .1em solid #ccc;
+    border-left: .1em solid #ccc;
+    left: -.1em;
     text-align: center;
-    font-size: .7em;
-    background: #333;
+    background: #1b233f;
 }
 .footerContent {
-    padding: .9em 1.2em;
+    font-size: .85em;
+    padding: .5em 1em;
 }
 .footer span {
     margin: .25em 0;
@@ -71,6 +77,10 @@ h1, h2, h3, h4 {
 h1 {
     text-align: center;
     margin-top: 1em;
+}
+
+.vcenter h1 {
+    margin-top: 0;
 }
 
 h2 {
@@ -122,10 +132,10 @@ a[rel=src]:before {
 .alert {
     padding: .3em;
     margin: 0 0 12px 0;
-    border: 2px solid #999;
-    background: #333;
-    color: #eee;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
+    border: 2px solid #ccc;
+    background: #242f53;
+    color: #fff;
+    -webkit-border-radius: .3em;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
 }

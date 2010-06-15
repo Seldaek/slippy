@@ -42,7 +42,8 @@ Changelog
     - Note that this breaks compatibility with previous slide decks, since the js/css files have to be included by hand in it now
   - Added parameters to the main slippy js command that enable users to easily tweak/override things, see example file
   - Added swipe/double-tap support on touch devices
-  - Splitted css in structural/theme stylesheets for easy customization"
+  - Splitted css in structural/theme stylesheets for easy customization
+  - Improved the default theme for better readability on projectors
   - Auto-sizing to the browser dimensions
   - Added page up, page down support for prev/next slide, and home/end to go to the begining or end of presentaiton
   - Animations are going the right way now when using overview/direct input and going backwards
