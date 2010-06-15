@@ -25,14 +25,14 @@
             return '<div class="slideContent">'+html+'</div>';
         });
         $el.find('pre').text(preparePreTags);
-        $el.find('a.evalLink').click(executeCode);
+        $el.find('a.eval').click(executeCode);
     };
 
     preparePreTags = function(idx, content) {
         var whitespace;
         if ($(this).hasClass('eval')) {
             $(this)
-                .before('<a class="evalLink">Execute</a>').prev()
+                .before('<a class="eval">Execute</a>').prev()
                 .data('src', content);
         }
         whitespace = content.match(/\r?\n?[ \t]+/);

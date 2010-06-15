@@ -31,7 +31,7 @@ a, a:link, a:active, a:visited {
     cursor: pointer;
 }
 
-a.evalLink {
+a.eval {
     float: right;
     margin-right: .3em;
     font-size: .8em;
@@ -171,18 +171,15 @@ a.evalLink {
     }
 
     .slide, .slideContent, body, html {
-        width: auto;
-        border: 0;
-        margin: 0;
-        padding: 0;
+        margin: 0 0 1em 0 !important;
     }
+
     .footer {
-        width: 97%;
-        padding-left:0;
-        padding-right:0;
-        margin-left: 20px;
-        margin-right: 20px;
         background: 0;
+    }
+
+    a.eval, .slideDisplay {
+        display: none;
     }
 
     .lastslide {

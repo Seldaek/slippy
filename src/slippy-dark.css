@@ -24,7 +24,7 @@ a, a:link, a:active, a:visited {
     text-decoration: none;
 }
 
-a.evalLink {
+a.eval {
     background-color: #eb1b1b;
     color: #000;
     margin: .2em .4em 0 0;
