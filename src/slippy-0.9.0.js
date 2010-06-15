@@ -44,7 +44,7 @@
      * Transforms / Sizing
      */
     autoSize = (function() {
-        var timeout, winW, winH, slideW, slideH, smallestDimension, ratio = 1.3,
+        var timeout, winW, winH, slideW, slideH, smallestDimension,
             // methods
             resizeAll, resizeOverview, calc, centerVertically;
 
@@ -52,14 +52,14 @@
             winW = $(window).width();
             winH = $(window).height();
 
-            if (winW > winH * ratio) {
+            if (winW > winH * options.ratio) {
                 smallestDimension = winH;
                 slideH = winH - winH * .15;
-                slideW = slideH * ratio;
+                slideW = slideH * options.ratio;
             } else {
-                smallestDimension = winW / ratio;
+                smallestDimension = winW / options.ratio;
                 slideW = winW - winW * .15;
-                slideH = slideW / ratio;
+                slideH = slideW / options.ratio;
             }
         };
 
@@ -337,12 +337,17 @@
 
     $.fn.slippy = function(settings) {
         var defaults = {
+            // animation duration for default anim callbacks, in milliseconds
             animLen: 350,
+            // base width for proportional image scaling
             baseWidth: 620,
+            // define animation callbacks, they receive a slide dom node to animate
             animInForward: animInForward,
             animInRewind: animInRewind,
             animOutForward: animOutForward,
-            animOutRewind: animOutRewind
+            animOutRewind: animOutRewind,
+            // width/height ratio of the slides, defaults to 1.3 (620x476)
+            ratio: 1.3
         };
 
         options = $.extend(defaults, settings);
