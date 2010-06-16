@@ -54,11 +54,11 @@
 
             if (winW > winH * options.ratio) {
                 smallestDimension = winH;
-                slideH = winH - winH * .15;
+                slideH = winH - winH * 0.15;
                 slideW = slideH * options.ratio;
             } else {
                 smallestDimension = winW / options.ratio;
-                slideW = winW - winW * .15;
+                slideW = winW - winW * 0.15;
                 slideH = slideW / options.ratio;
             }
         };
@@ -73,15 +73,15 @@
                 .css('marginLeft', -slideW/2);
             $('.slideContent')
                 .height(slideH*0.95)
-                .css('margin', (slideH*.05).toString() + "px auto 0")
+                .css('margin', (slideH*0.05).toString() + "px auto 0");
             $('img').css('width', function(val) {
                 var ratio;
                 $el = $(this);
                 if (!$el.data('origWidth')) {
                     $el.data('origWidth', $el.width());
                 }
-                ratio = Math.min($el.data('origWidth'), options.baseWidth) / options.baseWidth;
-                return ratio * slideW * .9;
+                ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
+                return ratio * slideW * 0.9;
             });
             resizeOverview();
             centerVertically();
@@ -203,7 +203,7 @@
                     showSlide(slides.index(this));
                     slides
                         .unbind('.slippyOverview')
-                        .unwrap()
+                        .unwrap();
                     $('body').removeClass('overview');
                     inOverview = false;
                 });
