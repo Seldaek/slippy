@@ -75,10 +75,11 @@
                 .height(slideH*0.95)
                 .css('margin', (slideH*0.05).toString() + "px auto 0");
             $('img').css('width', function(val) {
-                var ratio;
-                $el = $(this);
-                if (!$el.data('origWidth')) {
-                    $el.data('origWidth', $el.width());
+                var ratio, imgWidth;
+                imgWidth = $.data(this, 'origWidth');
+                if (!imgWidth) {
+                    imgWidth = $.width(this);
+                    $.data(this, 'origWidth', imgWidth);
                 }
                 ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
                 return ratio * slideW * 0.9;
@@ -89,26 +90,23 @@
 
         resizeOverview = function() {
             $('.overviewWrapper')
-                .height(slideH*.13)
-                .width(slideW*.15)
-                .css('margin', slideH*.05);
+                .height(slideH * 0.13)
+                .width(slideW * 0.15)
+                .css('margin', slideH * 0.05);
         };
 
         centerVertically = function() {
             $('.vcenter')
                 .css('margin-top', function() {
                     var $el = $(this);
-                    return "-" + (($el.innerHeight() / 2) - slideH*.05 + $el.closest('.slide').find('.footer').height()) + "px";
+                    return "-" + (($el.innerHeight() / 2) - slideH * 0.05 + $el.closest('.slide').find('.footer').height()) + "px";
                 })
-                .css('width', slideW*.9)
-                .css('left', slideW*.05);
+                .css('width', slideW * 0.9)
+                .css('left', slideW * 0.05);
         };
 
         return {
-            all: function(immediate) {
-                if (immediate === true) {
-                    return resizeAll();
-                }
+            all: function() {
                 clearTimeout(timeout);
                 timeout = setTimeout(resizeAll, 50);
             },
@@ -375,7 +373,7 @@
             .resize(autoSize.all)
             .scroll(antiScroll);
 
-        autoSize.all(true);
+        autoSize.all();
 
         $.history.init(urlChange);
         if (curSlide === undefined) {
