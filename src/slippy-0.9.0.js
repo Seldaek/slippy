@@ -78,7 +78,7 @@
                 var ratio, imgWidth;
                 imgWidth = $.data(this, 'origWidth');
                 if (!imgWidth) {
-                    imgWidth = $.width(this);
+                    imgWidth = $(this).width();
                     $.data(this, 'origWidth', imgWidth);
                 }
                 ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
