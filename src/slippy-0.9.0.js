@@ -84,7 +84,7 @@
                 ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
                 return Math.round(ratio * slideW * 0.9);
             });
-            $($.msie ? 'object' : 'embed').each(function() {
+            $('embed').each(function() {
                 var ratio, imgWidth, newWidth, $el, $parent;
                 $el = $(this);
                 if (!$el.parent().hasClass('embedWrapper')) {
