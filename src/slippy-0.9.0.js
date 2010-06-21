@@ -82,7 +82,25 @@
                     $.data(this, 'origWidth', imgWidth);
                 }
                 ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
-                return ratio * slideW * 0.9;
+                return Math.round(ratio * slideW * 0.9);
+            });
+            $($.msie ? 'object' : 'embed').each(function() {
+                var ratio, imgWidth, newWidth, $el, $parent;
+                $el = $(this);
+                if (!$el.parent().hasClass('embedWrapper')) {
+                    $el.wrap($('<div/>').addClass('embedWrapper'));
+                }
+                $parent = $el.parent();
+                imgWidth = $parent.data('origWidth');
+                if (!imgWidth) {
+                    imgWidth = $el.attr('width');
+                    $parent.data('origWidth', imgWidth);
+                    $parent.data('origRatio', $el.attr('height') / imgWidth);
+                }
+                ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
+                newWidth = Math.round(ratio * slideW * 0.9);
+                $el.attr('height', Math.round(newWidth * $parent.data('origRatio')));
+                $el.attr('width', newWidth);
             });
             resizeOverview();
             centerVertically();
