@@ -115,6 +115,10 @@ ol, ul {
     margin-left: 2em;
 }
 
+ol {
+    list-style-type: decimal;
+}
+
 /** References links */
 a[rel=src] {
     font-size: .6em;
