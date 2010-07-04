@@ -22,7 +22,7 @@ if (file_exists($dir.'config.php')) {
 $file = $dir . (isset($_GET['file']) ? basename($_GET['file']) : 'index.html');
 
 // list slide decks if none is not found
-if (!file_exists($file)) {
+if (!file_exists($file) || !is_file($file)) {
     echo '<h1>This is a Slippy Repository</h1><p>You can find the source for this application on <a href="http://github.com/Seldaek/slippy">github</a>, and browse the available slide decks in the list below.</p>';
     echo '<form action="" method="GET"><select name="file">';
     foreach(array_reverse(glob($dir.'*.html')) as $file) {
