@@ -40,6 +40,7 @@ Changelog
   - Slide decks files are now standalone html files that don't need php
     - However it is recommended if you have code blocks since it will convert html special chars automatically
     - Note that this breaks compatibility with previous slide decks, since the js/css files have to be included by hand in it now
+  - Added layout functionality, see the slide on layouts in the example deck for docs
   - Added parameters to the main slippy js command that enable users to easily tweak/override things, see example file
   - Added swipe/double-tap support on touch devices
   - Splitted css in structural/theme stylesheets for easy customization

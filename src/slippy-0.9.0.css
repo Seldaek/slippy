@@ -47,6 +47,10 @@ a.eval {
     left: -100%;
 }
 
+.layout {
+    display:none;
+}
+
 /** Overview screen */
 .overview .slide {
     float: left;

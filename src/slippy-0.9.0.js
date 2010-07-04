@@ -20,10 +20,27 @@
      * Init slides
      */
     buildSlide = function(idx, el) {
-        var $el = $(el);
-        $el.html(function(i, html) {
-            return '<div class="slideContent">'+html+'</div>';
-        });
+        var $el = $(el),
+            layout = $el.attr("layout"),
+            $layout;
+
+        // add layout to slide
+        if (!layout) {
+            layout = 'default';
+        }
+        if (($layout = $('.layout[name="' + layout + '"]').clone()).length > 0) {
+            $el.addClass($layout.removeClass('layout').attr('class'));
+            $el.html(function(i, html) {
+                if ($layout.find('content').length === 0) {
+                    throw new Error('Layouts must have a <content></content> tag that will be replaced by each slide\'s content');
+                }
+                return $layout
+                    .find('content').replaceWith(html)
+                    .end().html();
+            });
+        }
+
+        $el.wrapInner('<div class="slideContent"/>');
         $el.find('pre').text(preparePreTags);
         $el.find('a.eval').click(executeCode);
     };
@@ -374,13 +391,15 @@
         options = $.extend(defaults, settings);
 
         slides = this;
-        $('.footer')
-            .remove()
-            .wrapInner($('<div/>').addClass('footerContent'))
-            .appendTo(this);
         $('<div/>').addClass('slideDisplay').prependTo('body');
+
+        // wrap footer divs
+        $('.footer').wrapInner($('<div/>').addClass('footerContent'));
+
+        // prep slides
         this.each(buildSlide);
         this.last().addClass('lastslide');
+        $('.layout').remove();
 
         $(document)
             .click(clickNav)
@@ -404,7 +423,6 @@
             nextSlide();
         }
     };
-
 })(jQuery);
 
 // Alert module
