@@ -11,9 +11,9 @@ See the example slide deck live on [slides.seld.be][1]
 Contribute
 ----------
 
-If you like this piece of software, please consider contributing back with Flattr:
+If you like this piece of software, please consider contributing back with Flattr or Pledgie:
 
-<a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a>
+<a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a> <a href="http://pledgie.com/campaigns/11290"><img alt="Click here to lend your support to slippy and make a donation via pledgie.com !" src="http://www.pledgie.com/campaigns/11290.png?skin_name=chrome" border="0" /></a>
 
 Code contributions or ideas are obviously also much welcome.
 
