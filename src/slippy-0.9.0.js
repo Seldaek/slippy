@@ -85,7 +85,7 @@
                 return Math.round(ratio * slideW * 0.9);
             });
             $('embed').each(function() {
-                var ratio, imgWidth, newWidth, $el, $parent;
+                var ratio, imgWidth, newWidth, $el, $parent, $object;
                 $el = $(this);
                 if (!$el.parent().hasClass('embedWrapper')) {
                     $el.wrap($('<div/>').addClass('embedWrapper'));
@@ -101,6 +101,11 @@
                 newWidth = Math.round(ratio * slideW * 0.9);
                 $el.attr('height', Math.round(newWidth * $parent.data('origRatio')));
                 $el.attr('width', newWidth);
+                $object = $el.closest('object');
+                if ($object.length > 0) {
+                    $object.attr('height', Math.round(newWidth * $parent.data('origRatio')));
+                    $object.attr('width', newWidth);
+                }
             });
             resizeOverview();
             centerVertically();
