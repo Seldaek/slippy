@@ -343,8 +343,8 @@
             if (incrementals.length > 0) {
                 options.incrementalAfter(incrementals[curIncremental]);
                 if (curIncremental++ < incrementals.length) { return; }
-                incrementals = null; curIncremental = 0;
             }
+            incrementals = null; curIncremental = 0;
         }
 
         if (slides.length < curSlide + 2) { return; }
