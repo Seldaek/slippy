@@ -1,3 +1,5 @@
+/*jslint white: true, evil: true,browser: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: true, regexp: true, newcap: true, immed: true, strict: true */
+/*global window: false, jQuery: false */
 /**
  * Slippy
  * Copyright (C) 2010, Jordi Boggiano
@@ -8,6 +10,7 @@
  *
  * Version: 0.9.0
  */
+"use strict";
 
 // Slide deck module
 (function($) {
@@ -83,7 +86,7 @@
         resizeAll = function() {
             calc();
 
-            $('body').css('fontSize', smallestDimension/40);
+            $('body').css('fontSize', smallestDimension/42);
             slides.height(slideH)
                 .width(slideW)
                 .css('marginTop', -slideH/2)
@@ -153,7 +156,7 @@
             overview: resizeOverview,
             centerVertically: centerVertically
         };
-    })();
+    }());
 
     /**
      * Handle JS execute button
@@ -251,8 +254,8 @@
 
             default:
                 // handle numkeys for direct access
-                if ((e.keyCode >= 96 && e.keyCode <= 105 && ((e.keyCode -= 96) || true))
-                    || (e.keyCode >= 48 && e.keyCode <= 57 && ((e.keyCode -= 48) || true))
+                if ((e.keyCode >= 96 && e.keyCode <= 105 && ((e.keyCode -= 96) || true)) ||
+                    (e.keyCode >= 48 && e.keyCode <= 57 && ((e.keyCode -= 48) || true))
                 ) {
                     targetSlide *= 10;
                     targetSlide += e.keyCode;
@@ -268,7 +271,7 @@
                 }
             }
         };
-    })();
+    }());
 
     /**
      * Sort of fixes a bug in firefox since it doesn't
@@ -298,7 +301,7 @@
             }, 350);
             armed = true;
         };
-    })();
+    }());
 
     animInForward = function(slide) {
         $(slide).css('left', '150%').animate({left: '50%'}, options.animLen);
@@ -423,7 +426,7 @@
             nextSlide();
         }
     };
-})(jQuery);
+}(jQuery));
 
 // Alert module
 (function($) {
@@ -455,7 +458,7 @@
         });
         alerts = [];
     };
-})(jQuery);
+}(jQuery));
 
 /**
  * Touch handling
@@ -517,4 +520,4 @@
                 .bind("touchend", touchEnd);
         });
     };
-})(jQuery);
+}(jQuery));
