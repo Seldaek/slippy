@@ -142,7 +142,7 @@
             $('.vcenter')
                 .css('margin-top', function() {
                     var $el = $(this);
-                    return "-" + (($el.innerHeight() / 2) - slideH * 0.05 + $el.closest('.slide').find('.footer').height()) + "px";
+                    return "-" + (($el.innerHeight() + $el.closest('.slide').find('.footer').height()) / 2) + "px";
                 })
                 .css('width', slideW * 0.9)
                 .css('left', slideW * 0.05);
