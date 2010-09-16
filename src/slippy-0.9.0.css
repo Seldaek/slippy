@@ -172,6 +172,11 @@ a.eval {
         left: auto !important;
         page-break-after: always;
         page-break-inside: avoid;
+        height: auto;
+    }
+
+    .slide.lastslide {
+        page-break-after: auto;
     }
 
     .slide, .slideContent, body, html {
@@ -180,6 +185,7 @@ a.eval {
 
     .footer {
         background: 0;
+        position: fixed;
     }
 
     a.eval, .slideDisplay {
@@ -191,7 +197,8 @@ a.eval {
     }
 
     html, body {
-        overflow: auto;
+        overflow: auto !important;
+        height: auto !important;
     }
 
     .backcode {

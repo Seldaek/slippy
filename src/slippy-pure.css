@@ -17,7 +17,7 @@ body, html {
     font-family: Tahoma,Verdana,sans-serif;
 }
 
-body, html, body {
+body, html {
     overflow: hidden;
     height: 100%;
 }
@@ -161,4 +161,10 @@ a[rel=src]:before {
     -webkit-border-radius: .3em;
     -moz-border-radius: .3em;
     border-radius: .3em;
+}
+
+@media print {
+    .slide {
+        text-shadow: #000 0 0 0;
+    }
 }
