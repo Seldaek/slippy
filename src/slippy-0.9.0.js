@@ -49,14 +49,16 @@
     };
 
     preparePreTags = function(idx, content) {
-        var whitespace;
+        var match;
         if ($(this).hasClass('eval')) {
             $(this)
                 .before('<a class="eval">Execute</a>').prev()
                 .data('src', content);
         }
-        whitespace = content.match(/\r?\n?[ \t]+/);
-        content = content.replace(new RegExp('^'+whitespace, 'gm'), '');
+        match = content.match(/\r?\n?([ \t]*)/);
+        if (match && match[1]) {
+            content = content.replace(new RegExp('^'+match[1], 'gm'), '');
+        }
         return $.trim(content);
     };
 

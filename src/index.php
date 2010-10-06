@@ -42,7 +42,7 @@ echo $file;
  * Strips the leading whitespace off <pre> tags and html encodes them
  */
 function slippy_recode($match) {
-    $whitespace = preg_replace('#^\r?\n?([ \t]+).*#s', '$1', $match[2]);
+    $whitespace = preg_replace('#^\r?\n?([ \t]*).*#s', '$1', $match[2]);
     $output = preg_replace('/^'.preg_quote($whitespace, '/').'/m', '', $match[2]);
     return $match[1] . htmlspecialchars($output) . $match[3];
 }
