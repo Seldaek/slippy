@@ -33,10 +33,6 @@ a.eval {
     margin: .2em .4em 0 0;
 }
 
-.slide {
-    text-shadow: #888 0 0 0.3em;
-}
-
 /** Overview screen */
 .overview .slide {
     -moz-border-radius: 2em;
@@ -156,11 +152,12 @@ a[rel=src]:before {
     padding: .3em;
     margin: 0 0 12px 0;
     border: 2px solid #ccc;
-    background: #242f53;
-    color: #fff;
+    background: #fff;
+    color: #000;
     -webkit-border-radius: .3em;
     -moz-border-radius: .3em;
     border-radius: .3em;
+    font-size:1.2em;
 }
 
 @media print {
