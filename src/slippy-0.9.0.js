@@ -238,7 +238,7 @@
             case 9:
             case 27:
             case 46:
-                if ($.browser.msie < 9) { break; }
+                if ($.browser.msie && $.browser.version < 9) { break; }
                 if (inOverview) { break; }
                 slides.wrap($('<div/>').addClass('overviewWrapper'));
                 $('body').addClass('overview');
