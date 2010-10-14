@@ -49,6 +49,7 @@ Changelog
   - Added page up, page down support for prev/next slide, and home/end to go to the begining or end of presentaiton
   - Animations are going the right way now when using overview/direct input and going backwards
   - Added a template to render the slide repository page
+  - Added a packager that embeds everything for easy distribution of slides as one html file
   - JS Alerts are now cleared when changing slide, but stay visible longer
   - Fixed bug preventing "0" to be used to switch to slides
 
