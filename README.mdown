@@ -13,7 +13,7 @@ Contribute
 
 If you like this piece of software, please consider contributing back with Flattr or Pledgie:
 
-<a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a> <a href="http://pledgie.com/campaigns/11290"><img alt="Click here to lend your support to slippy and make a donation via pledgie.com !" src="http://www.pledgie.com/campaigns/11290.png?skin_name=chrome" border="0" /></a>
+<a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a> or go to <a href="http://pledgie.com/campaigns/11290">the pledgie.com campaign page</a> to donate.
 
 Code contributions or ideas are obviously also much welcome.
 
