@@ -44,7 +44,7 @@
         }
 
         $el.wrapInner('<div class="slideContent"/>');
-        $el.find('pre').text(preparePreTags);
+        $el.find('pre').html(preparePreTags);
         $el.find('a.eval').click(executeCode);
     };
 
