@@ -24,7 +24,7 @@
      */
     buildSlide = function(idx, el) {
         var $el = $(el),
-            layout = $el.attr("layout"),
+            layout = $el.attr("data-layout"),
             $layout;
 
         // add layout to slide

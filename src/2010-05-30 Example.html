@@ -17,7 +17,7 @@
         <!-- Slippy structural styles -->
         <link type="text/css" rel="stylesheet" href="slippy-0.9.0.css"/>
         <!-- Slippy theme -->
-        <link type="text/css" rel="stylesheet" href="slippy-dark.css"/>
+        <link type="text/css" rel="stylesheet" href="slippy-pure.css"/>
         <!-- Syntax highlighting core file  -->
         <script type="text/javascript" src="highlighter/shCore.js"></script>
         <!-- Syntax highlighting brushes, remove those you don't need -->
@@ -90,14 +90,14 @@
             </div>
         </div>
 
-        <div class="slide" layout="alt">
+        <div class="slide" data-layout="alt">
             <h1>Layouts</h1>
             <h2>This slide uses the "alt" layout</h2>
             <p>It inherits the class "nochrome" of the layout, which allows you to style it differently, and it doesn't have the footer div that the default layout has for example</p>
             <p>By default, all slides use the default layout if it's present</p>
             <p>Layouts must have a &lt;content&gt;&lt;/content&gt; tag that will be replaced by each slide's content</p>
             <pre class="brush: html">
-                <div class="slide" layout="alt">
+                <div class="slide" data-layout="alt">
                     Foo
                 </div>
 
