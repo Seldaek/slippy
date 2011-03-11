@@ -72,12 +72,12 @@ function fetchDecksData($decks)
                 if (!$meta->attributes()->name) {
                     continue;
                 }
-                $name = $meta->attributes()->name->__toString();
+                $name = (string) $meta->attributes()->name;
                 if (in_array($name, array('venue', 'date', 'author', 'email'))) {
-                    $decks[$idx][$name] = $meta->attributes()->content->__toString();
+                    $decks[$idx][$name] = (string) $meta->attributes()->content;
                 }
             }
-            $decks[$idx]['topic'] = $content->head->title->__toString();
+            $decks[$idx]['topic'] = (string) $content->head->title;
         }
         if (!isset($decks[$idx]['topic']) || !$decks[$idx]['topic']) {
             $decks[$idx]['topic'] = $decks[$idx]['filename'];
