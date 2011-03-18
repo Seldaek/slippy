@@ -24,14 +24,14 @@
      */
     buildSlide = function(idx, el) {
         var $el = $(el),
-            layout = $el.attr("data-layout"),
+            layout = $el.data("layout"),
             $layout;
 
         // add layout to slide
         if (!layout) {
             layout = 'default';
         }
-        if (($layout = $('.layout[name="' + layout + '"]').clone()).length > 0) {
+        if (($layout = $('.layout[data-name="' + layout + '"]').clone()).length > 0) {
             $el.addClass($layout.removeClass('layout').attr('class'));
             $el.html(function(i, html) {
                 if ($layout.find('content').length === 0) {
