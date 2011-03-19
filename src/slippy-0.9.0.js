@@ -4,6 +4,9 @@
  * Slippy
  * Copyright (C) 2010, Jordi Boggiano
  * http://seld.be/ - j.boggiano@seld.be
+ * 
+ * Modified 2010-07-28, Masao YOKOYAMA
+ * http://goo.gl/rZJa - masao.yokoyama@gmail.com
  *
  * Licensed under the new BSD License
  * See the LICENSE file for details
@@ -15,9 +18,11 @@
 // Slide deck module
 (function($) {
     var slides, curSlide, options, inOverview,
+        incrementals, curIncremental,
         // methods
         buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide,
-        keyboardNav, antiScroll, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind;
+        keyboardNav, antiScroll, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind,
+        incrementalBefore, incrementalAfter;
 
     /**
      * Init slides
@@ -321,22 +326,42 @@
         $(slide).animate({left: '150%'}, options.animLen);
     };
 
+    incrementalBefore = function(el) {
+        $(el).css({ opacity: 0.1 });
+    };
+
+    incrementalAfter = function(el) {
+        $(el).css({ opacity: 1 });
+    };
+
     nextSlide = function(e) {
+        if (curSlide !== -1) {
+            if (!incrementals) {
+                incrementals = $('.incremental > *', slides[curSlide]);
+                incrementals.parent().removeClass('incremental');
+            }
+            if (incrementals.length > 0) {
+                options.incrementalAfter(incrementals[curIncremental]);
+                if (curIncremental++ < incrementals.length) { return; }
+                incrementals = null; curIncremental = 0;
+            }
+        }
+
         if (slides.length < curSlide + 2) { return; }
         if (slides[curSlide]) {
-            animOutForward(slides[curSlide]);
+            options.animOutForward(slides[curSlide]);
         }
         setSlide(curSlide+1);
-        animInForward(slides[curSlide]);
+        options.animInForward(slides[curSlide]);
         $.history.load(curSlide+1);
     };
 
     prevSlide = function(e) {
         if (curSlide <= 0) { return; }
-        animOutRewind(slides[curSlide]);
+        options.animOutRewind(slides[curSlide]);
         setSlide(curSlide-1);
         if (slides[curSlide]) {
-            animInRewind(slides[curSlide]);
+            options.animInRewind(slides[curSlide]);
         }
         $.history.load(curSlide+1);
     };
@@ -347,16 +372,16 @@
         if (slides[curSlide]) {
             direction = curSlide < target ? 'forward' : 'rewind';
             if (direction === 'forward') {
-                animOutForward(slides[curSlide]);
+                options.animOutForward(slides[curSlide]);
             } else {
-                animOutRewind(slides[curSlide]);
+                options.animOutRewind(slides[curSlide]);
             }
         }
         setSlide(target);
         if (direction === 'forward') {
-            animInForward(slides[curSlide]);
+            options.animInForward(slides[curSlide]);
         } else {
-            animInRewind(slides[curSlide]);
+            options.animInRewind(slides[curSlide]);
         }
         $.history.load(curSlide+1);
     };
@@ -390,7 +415,9 @@
             animOutForward: animOutForward,
             animOutRewind: animOutRewind,
             // width/height ratio of the slides, defaults to 1.3 (620x476)
-            ratio: 1.3
+            ratio: 1.3,
+            incrementalBefore: incrementalBefore,
+            incrementalAfter: incrementalAfter
         };
 
         options = $.extend(defaults, settings);
@@ -406,9 +433,12 @@
         this.last().addClass('lastslide');
         $('.layout').remove();
 
+        curIncremental = 0;
+        $('.incremental > *').each(function(idx, el) { options.incrementalBefore(el); });
+
         $(document)
             .click(clickNav)
-            .keyup(keyboardNav);
+            .keydown(keyboardNav);
 
         slides.touch({
             swipeLeft: nextSlide,
