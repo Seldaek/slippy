@@ -81,11 +81,11 @@
 
             if (winW > winH * options.ratio) {
                 smallestDimension = winH;
-                slideH = winH - winH * 0.15;
+                slideH = winH - winH * options.margin;
                 slideW = slideH * options.ratio;
             } else {
                 smallestDimension = winW / options.ratio;
-                slideW = winW - winW * 0.15;
+                slideW = winW - winW * options.margin;
                 slideH = slideW / options.ratio;
             }
         };
@@ -414,6 +414,8 @@
             animInRewind: animInRewind,
             animOutForward: animOutForward,
             animOutRewind: animOutRewind,
+            // margin fraction, defaults to 1.5
+            margin: 1.5,
             // width/height ratio of the slides, defaults to 1.3 (620x476)
             ratio: 1.3,
             incrementalBefore: incrementalBefore,
