@@ -52,6 +52,7 @@ Changelog
   - Animations are going the right way now when using overview/direct input and going backwards
   - Added a template to render the slide repository page
   - Added a packager that embeds everything for easy distribution of slides as one html file
+  - Added incremental slides functionality (use the incremental class on any elements to make them appear one by one)
   - JS Alerts are now cleared when changing slide, but stay visible longer
   - Fixed bug preventing "0" to be used to switch to slides
 

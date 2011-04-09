@@ -15,7 +15,7 @@
 // Slide deck module
 (function($) {
     var slides, curSlide, options, inOverview,
-        incrementals, curIncremental,
+        incrementals, curIncremental = 0,
         // methods
         buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide,
         keyboardNav, antiScroll, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind,
@@ -323,25 +323,36 @@
         $(slide).animate({left: '150%'}, options.animLen);
     };
 
-    incrementalBefore = function(el) {
-        $(el).css({ opacity: 0.1 });
+    incrementalBefore = function(idx, el) {
+        if (options.incrementalBefore) {
+            options.incrementalBefore(el);
+        } else {
+            $(el).css({ opacity: 0.05 });
+        }
     };
 
     incrementalAfter = function(el) {
-        $(el).css({ opacity: 1 });
+        if (options.incrementalAfter) {
+            options.incrementalAfter(el);
+        } else {
+            $(el).css({ opacity: 1 });
+        }
     };
 
     nextSlide = function(e) {
         if (curSlide !== -1) {
             if (!incrementals) {
-                incrementals = $('.incremental > *', slides[curSlide]);
-                incrementals.parent().removeClass('incremental');
+                incrementals = $('.incremental', slides[curSlide]);
+                incrementals.removeClass('incremental');
+                curIncremental = 0;
             }
             if (incrementals.length > 0) {
-                options.incrementalAfter(incrementals[curIncremental]);
-                if (curIncremental++ < incrementals.length) { return; }
+                incrementalAfter(incrementals[curIncremental]);
+                if (curIncremental++ < incrementals.length) {
+                    return;
+                }
             }
-            incrementals = null; curIncremental = 0;
+            incrementals = null;
         }
 
         if (slides.length < curSlide + 2) { return; }
@@ -415,8 +426,8 @@
             margin: 0.15,
             // width/height ratio of the slides, defaults to 1.3 (620x476)
             ratio: 1.3,
-            incrementalBefore: incrementalBefore,
-            incrementalAfter: incrementalAfter
+            incrementalBefore: null,
+            incrementalAfter: null
         };
 
         options = $.extend(defaults, settings);
@@ -427,13 +438,12 @@
         // wrap footer divs
         $('.footer').wrapInner($('<div/>').addClass('footerContent'));
 
+        $('.incremental').each(incrementalBefore);
+
         // prep slides
         this.each(buildSlide);
         this.last().addClass('lastslide');
         $('.layout').remove();
-
-        curIncremental = 0;
-        $('.incremental > *').each(function(idx, el) { options.incrementalBefore(el); });
 
         $(document)
             .click(clickNav)
