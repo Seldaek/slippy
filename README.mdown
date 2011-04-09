@@ -32,6 +32,8 @@ Author
 Jordi Boggiano - <j.boggiano@seld.be>
 <http://seld.be/> - <http://twitter.com/seldaek>
 
+See also the list of [contributors](https://github.com/Seldaek/slippy/contributors) which participated in this project.
+
 Changelog
 ---------
 

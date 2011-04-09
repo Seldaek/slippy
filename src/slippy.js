@@ -4,9 +4,6 @@
  * Slippy
  * Copyright (C) 2010, Jordi Boggiano
  * http://seld.be/ - j.boggiano@seld.be
- * 
- * Modified 2010-07-28, Masao YOKOYAMA
- * http://goo.gl/rZJa - masao.yokoyama@gmail.com
  *
  * Licensed under the new BSD License
  * See the LICENSE file for details
@@ -414,8 +411,8 @@
             animInRewind: animInRewind,
             animOutForward: animOutForward,
             animOutRewind: animOutRewind,
-            // margin fraction, defaults to 1.5
-            margin: 1.5,
+            // margin fraction, defaults to 0.15
+            margin: 0.15,
             // width/height ratio of the slides, defaults to 1.3 (620x476)
             ratio: 1.3,
             incrementalBefore: incrementalBefore,
@@ -440,7 +437,7 @@
 
         $(document)
             .click(clickNav)
-            .keydown(keyboardNav);
+            .keyup(keyboardNav);
 
         slides.touch({
             swipeLeft: nextSlide,
