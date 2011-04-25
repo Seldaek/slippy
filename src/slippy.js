@@ -17,7 +17,7 @@
     var slides, curSlide, options, inOverview,
         incrementals, curIncremental = 0,
         // methods
-        buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide,
+        buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide, getCurrentSlide,
         keyboardNav, antiScroll, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind,
         incrementalBefore, incrementalAfter;
 
@@ -404,6 +404,10 @@
         $('.slideDisplay').text((num+1)+'/'+slides.length);
     };
 
+    getCurrentSlide = function() {
+        return curSlide;
+    };
+
     urlChange = function(url) {
         url = parseInt(url, 10) - 1;
         if (curSlide !== url && slides[url]) {
@@ -470,7 +474,8 @@
         return {
             nextSlide: nextSlide,
             prevSlide: prevSlide,
-            showSlide: showSlide
+            showSlide: showSlide,
+            getCurrentSlide: getCurrentSlide
         };
     };
 }(jQuery));
