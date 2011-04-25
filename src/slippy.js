@@ -466,6 +466,12 @@
             curSlide = -1;
             nextSlide();
         }
+
+        return {
+            nextSlide: nextSlide,
+            prevSlide: prevSlide,
+            showSlide: showSlide
+        };
     };
 }(jQuery));
 
