@@ -26,6 +26,19 @@ Go to a slide directly, press number keys and then enter
 
 Get an overview, press escape, tab or delete then click on a slide to go straight to it
 
+Exporting PDFs
+--------------
+
+To upload your presentation on SlideShare, or to share it with others, it can be convenient to 
+export it to a PDF. Slippy comes with a CLI utility that does just that.
+
+The only requirement is that you download [PhantomJS](http://code.google.com/p/phantomjs/downloads/list) (1.1+)
+and place it inside the bin/phantomjs dir or make it accessible via your PATH environment variable.
+
+Once that is done, you can call the script using `bin/slippy-pdf.sh <path to your html presentation> <path to the pdf file to generate>`.
+
+It'll take a while and then should output a 4:3 high-res PDF file.
+
 Author
 ------
 
@@ -45,6 +58,7 @@ Changelog
   - Added layout functionality, see the slide on layouts in the example deck for docs
   - Added parameters to the main slippy js command that enable users to easily tweak/override things, see example file
   - Added swipe/double-tap support on touch devices
+  - Added PDF export functionality using PhantomJS
   - Splitted css in structural/theme stylesheets for easy customization
   - Improved the default theme for better readability on projectors
   - Auto-sizing to the browser dimensions
