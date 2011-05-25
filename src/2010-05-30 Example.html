@@ -63,7 +63,7 @@
         </script>
         <!-- Custom style for this deck -->
         <style type="text/css">
-            .slide.nochrome {
+            .slide.nofooter {
                 border: 0;
                 background: 0;
             }
@@ -94,7 +94,7 @@
         <div class="slide" data-layout="alt">
             <h1>Layouts</h1>
             <h2>This slide uses the "alt" layout</h2>
-            <p>It inherits the class "nochrome" of the layout, which allows you to style it differently, and it doesn't have the footer div that the default layout has for example</p>
+            <p>It inherits the class "nofooter" of the layout, which allows you to style it differently, and it doesn't have the footer div that the default layout has for example</p>
             <p>By default, all slides use the default layout if it's present</p>
             <p>Layouts must have a &lt;content&gt;&lt;/content&gt; tag that will be replaced by each slide's content</p>
             <pre class="brush: html">
@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <div class="layout nochrome" data-name="alt">
+                <div class="layout nofooter" data-name="alt">
                     <content></content>
                 </div>
             </pre>
@@ -168,7 +168,7 @@
             </div>
         </div>
 
-        <div class="layout nochrome" data-name="alt">
+        <div class="layout nofooter" data-name="alt">
             <content></content>
         </div>
     </body>
