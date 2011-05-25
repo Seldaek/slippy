@@ -25,21 +25,17 @@ if [ "" = "$phantom" ]; then
     fi
 fi
 
-$phantom $bin/phantom-slippy-to-png.js $1 tmp-pdf/
+pdftk=`which pdftk 2>/dev/null`
+if [ "" = "$pdftk" ]; then
+    if [ -f "$bin/pdftk/pdftk" ]; then
+        pdftk="$bin/pdftk/pdftk"
+    else
+        echo 'pdftk could not be found, either download it and put it inside a pdftk directory, or make it accessible through your PATH environment variable.'
+        exit
+    fi
+fi
 
-cd tmp-pdf
+$phantom $bin/phantom-slippy-to-pdf.js $1 tmp-pdf/
 
-echo '<!DOCTYPE html><html><head><title>Slippy Export</title>
-<style>img, body, html, * { border: 0; margin: 0; padding: 0; line-height:0; }</style>
-</head><body>' > tmp-pdf.html
-
-for i in *.png; do
-    echo "<img src='$i' />" >> tmp-pdf.html
-done
-
-echo '</body></html>' >> tmp-pdf.html
-cd ..
-
-$phantom $bin/phantom-png-to-pdf.js
-mv tmp-pdf/slides.pdf $2
+$pdftk tmp-pdf/*.pdf cat output $2
 rm -r tmp-pdf/

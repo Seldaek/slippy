@@ -166,39 +166,12 @@ a.eval {
         size: landscape;
     }
 
-    .slide {
-        position: relative;
-        top: auto !important;
-        left: auto !important;
-        page-break-after: always;
-        page-break-inside: avoid;
-        height: auto;
-    }
-
-    .slide.lastslide {
-        page-break-after: auto;
-    }
-
-    .slide, .slideContent, body, html {
-        margin: 0 0 1em 0 !important;
-    }
-
-    .footer {
-        background: 0;
-        position: fixed;
+    body, html {
+        margin: 0 0 0 0 !important;
     }
 
     a.eval, .slideDisplay {
         display: none;
-    }
-
-    .lastslide {
-        page-break-after: never;
-    }
-
-    html, body {
-        overflow: auto !important;
-        height: auto !important;
     }
 
     .backcode {
