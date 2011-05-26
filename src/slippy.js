@@ -145,8 +145,10 @@
         centerVertically = function() {
             $('.vcenter')
                 .css('margin-top', function() {
-                    var $el = $(this);
-                    return "-" + (($el.innerHeight() + $el.closest('.slide').find('.footer').height()) / 2) + "px";
+                    var $el = $(this),
+                        halfHeight = ($el.innerHeight() + $el.closest('.slide').find('.footer').height()) / 2,
+                        topMargin = parseFloat($el.closest('.slideContent').css('margin-top'));
+                    return "-" + (halfHeight + topMargin) + "px";
                 })
                 .css('width', slideW * 0.9)
                 .css('left', slideW * 0.05);
