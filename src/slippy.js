@@ -98,15 +98,23 @@
             $('.slideContent')
                 .height(slideH*0.95)
                 .css('margin', (slideH*0.05).toString() + "px auto 0");
-            $('.slideContent img').css('width', function(val) {
-                var ratio, imgWidth;
+            $('.slideContent img').each(function() {
+                var ratio, imgWidth, imgHeight;
                 imgWidth = $.data(this, 'origWidth');
-                if (!imgWidth) {
+                imgHeight = $.data(this, 'origHeight');
+                if (!imgWidth || !imgHeight) {
                     imgWidth = $(this).width();
+                    imgHeight = $(this).height();
                     $.data(this, 'origWidth', imgWidth);
+                    $.data(this, 'origHeight', imgHeight);
                 }
-                ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
-                return Math.round(ratio * slideW * 0.9);
+                if (imgWidth >= imgHeight) {
+                    ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
+                    $(this).css('width',  Math.round(ratio * slideW * 0.9));
+                } else {
+                    ratio = Math.min(imgHeight, options.baseWidth / options.ratio) / (options.baseWidth / options.ratio);
+                    $(this).css('height',  Math.round(ratio * slideH * 0.9));
+                }
             });
             $('.slideContent embed').each(function() {
                 var ratio, imgWidth, newWidth, $el, $parent, $object;
