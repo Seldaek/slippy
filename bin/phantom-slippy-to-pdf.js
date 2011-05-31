@@ -19,7 +19,7 @@ if (phantom.state.length === 0) {
     current = 1;
     slides = $('.slideContent').length;
     phantom.viewportSize = { width: viewport.width, height: viewport.height };
-    phantom.paperSize = { width: viewport.width * 1.5, height: viewport.height * 1.5 + 20 };
+    phantom.paperSize = { width: viewport.width * 1.5, height: viewport.height * 1.5 + 30 };
     output = phantom.args[1];
 
     phantom.sleep(1000);
