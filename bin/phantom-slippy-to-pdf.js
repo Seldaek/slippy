@@ -23,8 +23,8 @@ if (phantom.state.length === 0) {
     output = phantom.args[1];
 
     phantom.sleep(1000);
-    $('.incremental').css('opacity', '1');
-    
+    $('.incremental').css('opacity', '1').removeClass('.incremental');
+
     for (;current<=slides;current++) {
         console.log('rendering slide '+current);
         phantom.sleep(delay);
