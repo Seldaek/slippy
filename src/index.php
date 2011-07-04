@@ -93,7 +93,7 @@ function downloadDeck($file)
 {
     header('Content-Type: text/html');
     header('Content-Disposition: attachment; filename="'.$_GET['file'].'"');
-    $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';//$_SERVER['REQUEST_URI'];
+    $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';
     $doc = new DOMDocument();
     @$doc->loadHTML($file);
     $xpath = new DOMXPath($doc);
@@ -133,7 +133,7 @@ function downloadDeck($file)
         }
         $imgUrl .= $source;
         $ext = strtolower(substr($source, strrpos($source, '.') + 1));
-        $data = 'data:'.$types[$ext].';base64,'.base64_encode(file_get_contents($imgUrl));
+        $data = 'data:'.$types[$ext].';base64,'.base64_encode(file_get_contents(str_replace(' ', '%20', $imgUrl)));
         $img->setAttribute('src', $data);
     }
     echo $doc->saveHTML();
