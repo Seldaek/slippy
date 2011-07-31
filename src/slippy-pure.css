@@ -107,6 +107,10 @@ li {
     font-size: 1.2em;
 }
 
+li li {
+    font-size: 1em;
+}
+
 p {
     margin:.25em 0;
 }
