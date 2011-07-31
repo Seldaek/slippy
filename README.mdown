@@ -1,24 +1,13 @@
 Slippy - HTML Slides
 ====================
 
-Demo / Documentation
---------------------
+Demo
+----
 
-See the example slide deck live on [slides.seld.be][1]
-
-[1]: http://slides.seld.be/?file=2010-05-30+Example.html
-
-Contribute
-----------
-
-If you like this piece of software, please consider contributing back with Flattr or Pledgie:
-
-<a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a> or go to <a href="http://pledgie.com/campaigns/11290">the pledgie.com campaign page</a> to donate.
-
-Code contributions or ideas are obviously also much welcome.
+See the example slide deck live on [slides.seld.be](http://slides.seld.be/?file=2010-05-30+Example.html)
 
 How to: Navigate slide decks
------------------------------
+----------------------------
 
 Navigate, double click anywhere, press space or use the left/up and right/down arrow keys
 
@@ -27,7 +16,7 @@ Go to a slide directly, press number keys and then enter
 Get an overview, press escape, tab or delete then click on a slide to go straight to it
 
 How to: Make your own slide deck
--------------------------------
+--------------------------------
 
 At the core, slide decks are simple HTML files. Every slide can be any html element,
 but is typically a div or section. You initialize slippy by calling `slippy()` on a
@@ -112,6 +101,13 @@ Jordi Boggiano - <j.boggiano@seld.be>
 <http://seld.be/> - <http://twitter.com/seldaek>
 
 See also the list of [contributors](https://github.com/Seldaek/slippy/contributors) which participated in this project.
+
+Contribute
+----------
+
+<a href="http://flattr.com/thing/14125/Slippy-HTML-Presentations" target="_blank"><img src="http://api.flattr.com/button/button-static-50x60.png" title="Flattr this" border="0" /></a> If you like this piece of software, please consider giving back with Flattr.
+
+Code contributions, bug reports and ideas are obviously also much welcome.
 
 Changelog
 ---------
