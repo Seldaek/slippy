@@ -17,8 +17,8 @@ If you like this piece of software, please consider contributing back with Flatt
 
 Code contributions or ideas are obviously also much welcome.
 
-Usage
------
+How to: Navigate slide decks
+-----------------------------
 
 Navigate, double click anywhere, press space or use the left/up and right/down arrow keys
 
@@ -26,20 +26,84 @@ Go to a slide directly, press number keys and then enter
 
 Get an overview, press escape, tab or delete then click on a slide to go straight to it
 
+How to: Make your own slide deck
+-------------------------------
+
+At the core, slide decks are simple HTML files. Every slide can be any html element,
+but is typically a div or section. You initialize slippy by calling `slippy()` on a
+jQuery selection, for example, if you add the `slide` class to all your slide divs,
+use: `$(".slide").slippy({})`. Using the `slide` class is recommended because that's
+what the default CSS file is using, but you're free to do what you want.
+
+To get quickly started, you can use the `2010-05-30 Example.html` file which is an
+example slide deck, and edit it, however if you prefer to do it all by hand, here are
+the parts you need to add to your HTML file:
+
+    <!-- jQuery + history plugin -->
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.history.js"></script>
+
+    <!-- Slippy core js file -->
+    <script type="text/javascript" src="slippy.js"></script>
+
+    <!-- Slippy structural styles -->
+    <link type="text/css" rel="stylesheet" href="slippy.css"/>
+
+    <!-- Slippy theme (feel free to change it) -->
+    <link type="text/css" rel="stylesheet" href="slippy-pure.css"/>
+
+In addition, if you want syntax highlighting, you should add the following files.
+Using it is simple, just create a `<pre>` tag with a `class="brush: js"` to highlight
+javascript code for example. You can read more on the
+[SyntaxHighlighter](http://alexgorbatchev.com/SyntaxHighlighter/) website itself.
+
+    <!-- Syntax highlighting core file  -->
+    <script type="text/javascript" src="highlighter/shCore.js"></script>
+
+    <!-- Syntax highlighting brushes, this one is only for javascript -->
+    <script type="text/javascript" src="highlighter/shBrushJScript.js"></script>
+
+    <!-- Syntax highlighting core CSS and a theme -->
+    <link type="text/css" rel="stylesheet" href="highlighter/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="highlighter/shThemeEclipse.css"/>
+
+Finally you should initialize Slippy and the syntax highlighter:
+
+    <script type="text/javascript">
+        $(function() {
+            $(".slide").slippy({});
+            SyntaxHighlighter.all();
+        });
+    </script>
+
+The slippy() call takes an option object, which accepts the following keys:
+
+- animLen, duration for default animations (0 = disabled)
+- animInForward, receives a slide and animates it
+- animInRewind, receives a slide and animates it
+- animOutForward, receives a slide and animates it
+- animOutRewind, receives a slide and animates it
+- baseWidth, defines the base for img resizing, if you don't want only
+  full-width images, specify this as the pixel width of a slide so that
+  images are scaled properly (default is 620px wide)
+- ratio, defines the width/height ratio of the slides, defaults to 1.3 (620x476)
+- margin, the fraction of screen to use as slide margin, defaults to 0.15
+
 Exporting PDFs
 --------------
 
-To upload your presentation on SlideShare, or to share it with others, it can be convenient to 
+To upload your presentation on SlideShare, or to share it with others, it can be convenient to
 export it to a PDF. Slippy comes with a CLI utility that does just that.
 
-The only requirement is that you download [PhantomJS](http://code.google.com/p/phantomjs/downloads/list) (1.1+)
-and [pdftk](http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/) and place the executables in the bin/phantomjs 
+The only requirement is that you download [PhantomJS](http://code.google.com/p/phantomjs/downloads/list) (1.1 only)
+and [pdftk](http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/) and place the executables in the bin/phantomjs
 and bin/pdftk dirs or make them accessible via your PATH environment variable.
 
 Once that is done, you can call the script using `bin/slippy-pdf.sh <path to your html presentation> <path to the pdf file to generate>`.
 
-It'll take a while and then should output a 4:3 PDF file. If you don't like the aspect ratio or size, 
-you can change the viewport size in the `bin/phantom-slippy-to-pdf.js` file.
+It'll take a while and then should output a 4:3 PDF file. If you don't like the aspect ratio or size,
+you can change the viewport size in the `bin/phantom-slippy-to-pdf.js` file. If you have rendering issues (missing
+images or such), try increasing the delay, or rendering again, sometimes PhantomJS just fails without apparent reason.
 
 Author
 ------
