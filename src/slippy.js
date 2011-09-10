@@ -55,7 +55,7 @@
         if ($(this).hasClass('eval')) {
             $(this)
                 .before('<a class="eval">Execute</a>').prev()
-                .data('src', content);
+                .data('src', $("<div/>").html(content).text());
         }
         match = content.match(/\r?\n?([ \t]*)/);
         if (match && match[1]) {
