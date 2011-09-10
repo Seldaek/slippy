@@ -23,14 +23,13 @@ if (phantom.state.length === 0) {
     output = phantom.args[1];
 
     phantom.sleep(1000);
-    $('.incremental').css('opacity', '1').removeClass('.incremental');
+    $('.incremental').css('opacity', '1').removeClass('incremental');
 
     for (;current<=slides;current++) {
         console.log('rendering slide '+current);
         phantom.sleep(delay);
         phantom.render(output+'slide'+"000".substring(current.toString().length)+current+'.pdf');
-        $(document).click();
-        $(document).click();
+        $(document).slippy().nextSlide();
     }
     console.log('done');
     phantom.exit();

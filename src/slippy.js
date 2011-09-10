@@ -427,59 +427,63 @@
     };
 
     $.fn.slippy = function(settings) {
-        var defaults = {
-            // animation duration for default anim callbacks, in milliseconds
-            animLen: 350,
-            // base width for proportional image scaling
-            baseWidth: 620,
-            // define animation callbacks, they receive a slide dom node to animate
-            animInForward: animInForward,
-            animInRewind: animInRewind,
-            animOutForward: animOutForward,
-            animOutRewind: animOutRewind,
-            // margin fraction, defaults to 0.15
-            margin: 0.15,
-            // width/height ratio of the slides, defaults to 1.3 (620x476)
-            ratio: 1.3,
-            incrementalBefore: null,
-            incrementalAfter: null
-        };
+        if (slides === undefined) {
+            var defaults = {
+                // animation duration for default anim callbacks, in milliseconds
+                animLen: 350,
+                // base width for proportional image scaling
+                baseWidth: 620,
+                // define animation callbacks, they receive a slide dom node to animate
+                animInForward: animInForward,
+                animInRewind: animInRewind,
+                animOutForward: animOutForward,
+                animOutRewind: animOutRewind,
+                // margin fraction, defaults to 0.15
+                margin: 0.15,
+                // width/height ratio of the slides, defaults to 1.3 (620x476)
+                ratio: 1.3,
+                incrementalBefore: null,
+                incrementalAfter: null
+            };
 
-        options = $.extend(defaults, settings);
+            options = $.extend(defaults, settings);
 
-        slides = this;
-        $('<div/>').addClass('slideDisplay').prependTo('body');
+            slides = this;
+            $('<div/>').addClass('slideDisplay').prependTo('body');
 
-        // wrap footer divs
-        $('.footer').wrapInner($('<div/>').addClass('footerContent'));
+            // wrap footer divs
+            $('.footer').wrapInner($('<div/>').addClass('footerContent'));
 
-        $('.incremental').each(incrementalBefore);
+            $('.incremental').each(incrementalBefore);
 
-        // prep slides
-        this.each(buildSlide);
-        this.last().addClass('lastslide');
-        $('.layout').remove();
+            // prep slides
+            this.each(buildSlide);
+            this.last().addClass('lastslide');
+            $('.layout').remove();
 
-        $(document)
-            .click(clickNav)
-            .keyup(keyboardNav);
+            $(document)
+                .click(clickNav)
+                .keyup(keyboardNav);
 
-        slides.touch({
-            swipeLeft: nextSlide,
-            swipeRight: prevSlide,
-            tap: clickNav
-        });
+            slides.touch({
+                swipeLeft: nextSlide,
+                swipeRight: prevSlide,
+                tap: clickNav
+            });
 
-        $(window)
-            .resize(autoSize.all)
-            .scroll(antiScroll);
+            $(window)
+                .resize(autoSize.all)
+                .scroll(antiScroll);
 
-        autoSize.all();
+            $('img').load(autoSize.all);
 
-        $.history.init(urlChange);
-        if (curSlide === undefined) {
-            curSlide = -1;
-            nextSlide();
+            autoSize.all();
+
+            $.history.init(urlChange);
+            if (curSlide === undefined) {
+                curSlide = -1;
+                nextSlide();
+            }
         }
 
         return {
