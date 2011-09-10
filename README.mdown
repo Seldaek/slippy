@@ -13,7 +13,7 @@ Navigate, double click anywhere, press space or use the left/up and right/down a
 
 Go to a slide directly, press number keys and then enter
 
-Get an overview, press escape, tab or delete then click on a slide to go straight to it
+Get an overview, press escape or delete then click on a slide to go straight to it
 
 How to: Make your own slide deck
 --------------------------------

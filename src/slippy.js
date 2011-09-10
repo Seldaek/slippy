@@ -246,8 +246,7 @@
                 // TODO show help;
                 break;
 
-            // handle delete, esc, tab for overview
-            case 9:
+            // handle delete, esc for overview
             case 27:
             case 46:
                 if ($.browser.msie && $.browser.version < 9) { break; }
