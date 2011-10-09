@@ -7,6 +7,7 @@ if [ "" = "$2" ]; then
     echo "Usage: ./phantom-pdf.sh <slides URL> <PDF filename>"
     exit 1
 fi
+
 mkdir -p tmp-pdf/
 rm -f tmp-pdf/*.png
 rm -f tmp-pdf/*.pdf
@@ -36,6 +37,11 @@ if [ "" = "$pdftk" ]; then
 fi
 
 $phantom $bin/phantom-slippy-to-pdf.js $1 tmp-pdf/
+if [ "$?" != "0" ]
+then
+    echo 'PhantomJS error, aborting.'
+    exit
+fi
 
 $pdftk tmp-pdf/*.pdf cat output $2
 rm -r tmp-pdf/

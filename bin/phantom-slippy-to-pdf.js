@@ -1,36 +1,58 @@
-var current, slides, viewport, output, delay;
+var page, current, slides, viewport, output, delay;
 
 // settings
 delay = 500;
 viewport = { width: 1024, height: 768 };
 
-// init
-if (phantom.state.length === 0) {
-    if (phantom.args.length !== 2) {
-        console.log('Usage: phantom-pdf.js URL dirname');
+if (phantom.version.major == 1 && phantom.version.minor < 3) {
+    console.log('This script requires PhantomJS v1.3.0+, you have v'+phantom.version.major+'.'+phantom.version.minor+'.'+phantom.version.patch);
+    phantom.exit(-1);
+}
+
+if (phantom.args.length !== 2) {
+    console.log('Usage: phantom-pdf.js URL dirname');
+    phantom.exit(-1);
+}
+
+output = phantom.args[1];
+current = 1;
+page = new WebPage();
+page.viewportSize = { width: viewport.width, height: viewport.height };
+page.paperSize = { width: viewport.width * 1.5, height: viewport.height * 1.5 + 30 };
+
+console.log('Loading ...');
+page.open(phantom.args[0], function (status) {
+    if (status !== 'success') {
+        console.log('Unable to access network');
         phantom.exit();
     } else {
-        phantom.state = 'rasterize';
-        console.log('opening page');
-        phantom.open(phantom.args[0]);
-    }
-} else {
-    // run
-    current = 1;
-    slides = $('.slideContent').length;
-    phantom.viewportSize = { width: viewport.width, height: viewport.height };
-    phantom.paperSize = { width: viewport.width * 1.5, height: viewport.height * 1.5 + 30 };
-    output = phantom.args[1];
+        slides = page.evaluate(function () {
+            return $('.slideContent').length;
+        });
 
-    phantom.sleep(1000);
-    $('.incremental').css('opacity', '1').removeClass('incremental');
-
-    for (;current<=slides;current++) {
-        console.log('rendering slide '+current);
-        phantom.sleep(delay);
-        phantom.render(output+'slide'+"000".substring(current.toString().length)+current+'.pdf');
-        $(document).slippy().nextSlide();
+        setTimeout(initPage, 1000);
     }
-    console.log('done');
-    phantom.exit();
+});
+
+function initPage() {
+    console.log('Rendering ...');
+    page.evaluate(function () {
+        $('.incremental').css('opacity', '1').removeClass('incremental');
+    });
+    setTimeout(renderNextSlide, delay);
+}
+
+function renderNextSlide() {
+    if (current <= slides) {
+        console.log('... slide '+current);
+        page.render(output+'slide'+"000".substring(current.toString().length)+current+'.pdf');
+        page.evaluate(function () {
+            $(document).slippy().nextSlide();
+        });
+        current++;
+        setTimeout(renderNextSlide, delay);
+    } else {
+        console.log('Done.');
+        phantom.exit(0);
+    }
 }
