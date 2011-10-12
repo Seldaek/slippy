@@ -84,9 +84,10 @@ Exporting PDFs
 To upload your presentation on SlideShare, or to share it with others, it can be convenient to
 export it to a PDF. Slippy comes with a CLI utility that does just that.
 
-The only requirement is that you download [PhantomJS](http://code.google.com/p/phantomjs/downloads/list) (1.1 only)
+The only requirement is that you download [PhantomJS](http://code.google.com/p/phantomjs/downloads/list) (1.3+)
 and [pdftk](http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/) and place the executables in the bin/phantomjs
-and bin/pdftk dirs or make them accessible via your PATH environment variable.
+and bin/pdftk dirs or make them accessible via your PATH environment variable. If you're on linux you can
+probably install pdftk with your distro's package manager.
 
 Once that is done, you can call the script using `bin/slippy-pdf.sh <path to your html presentation> <path to the pdf file to generate>`.
 
