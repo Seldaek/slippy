@@ -36,12 +36,12 @@ if [ "" = "$pdftk" ]; then
     fi
 fi
 
-$phantom $bin/phantom-slippy-to-pdf.js $1 tmp-pdf/
+$phantom $bin/phantom-slippy-to-pdf.js "$1" tmp-pdf/
 if [ "$?" != "0" ]
 then
     echo 'PhantomJS error, aborting.'
     exit
 fi
 
-$pdftk tmp-pdf/*.pdf cat output $2
+$pdftk tmp-pdf/*.pdf cat output "$2"
 rm -r tmp-pdf/
