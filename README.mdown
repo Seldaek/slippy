@@ -78,6 +78,32 @@ The slippy() call takes an option object, which accepts the following keys:
 - ratio, defines the width/height ratio of the slides, defaults to 1.3 (620x476)
 - margin, the fraction of screen to use as slide margin, defaults to 0.15
 
+Server
+------
+The src/ folder contains an index.php that serves slides.
+
+- Put the src folder inside the webroot of a web server
+- Copy config.php.dist to config.php and adjust to point to the folder containing
+    your slides - or just copy/symlink all slides into the src folder. The
+    index.php looks for html files in that folder and shows them, using the
+    header information for title and author.
+
+Exporting self-contained HTML presentations
+-------------------------------------------
+
+Slippy can generate a presentation in a single file, with all javascript, css
+and images inlined.
+
+    php src/index.php <slippy slides> [<output file>]
+
+If you omit the output file, slippy will generate the filename from the input
+file, appending _compiled to the name.
+
+If you set up the slippy webserver (see above), you can also click the download link.
+
+Limitation: If you use images in css statements, they are not included. If you
+need to do that, you should generate a PDF instead (see below).
+
 Exporting PDFs
 --------------
 

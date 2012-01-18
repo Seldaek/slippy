@@ -20,9 +20,31 @@ if (file_exists($dir.'config.php')) {
     $dir = rtrim($dir, '/').'/';
 }
 
-// fetch slide deck
-if (isset($_GET['file'])) {
-    $file = $dir . basename($_GET['file']);
+if (isset($argv)) {
+    if (isset($argv[1]) && file_exists($argv[1])) {
+        $file = $argv[1];
+    } else {
+        die ("USAGE: index.php <name of your slides html file> [<target file>]\n");
+    }
+    if (isset($argv[2])) {
+        $targetfile = $argv[2];
+    } else {
+        $targetfile = substr($file, 0, strrpos($file, '.')).'_compiled.html';
+    }
+    if (file_exists($targetfile)) {
+        echo "File $targetfile exists. Do you want to overwrite? Type 'yes' to proceed: ";
+        $handle = fopen ("php://stdin","r");
+        $line = fgets($handle);
+        if(trim($line) != 'yes'){
+            echo "aborting.\n";
+            exit;
+        }
+    }
+} else {
+    // fetch slide deck
+    if (isset($_GET['file'])) {
+        $file = $dir . basename($_GET['file']);
+    }
 }
 
 // list slide decks if none is not found
@@ -38,7 +60,7 @@ if (!file_exists($file) || !is_file($file) || !is_readable($file)) {
 $file = file_get_contents($file);
 $file = preg_replace_callback('{(<pre[^>]+>)(.+?)(</pre>)}s', 'slippy_recode', $file);
 
-if (isset($_GET['download']) && $_GET['download']) {
+if (isset($argv) || isset($_GET['download']) && $_GET['download']) {
     downloadDeck($file);
     die;
 }
@@ -91,9 +113,13 @@ function fetchDecksData($decks)
  */
 function downloadDeck($file)
 {
-    header('Content-Type: text/html');
-    header('Content-Disposition: attachment; filename="'.$_GET['file'].'"');
-    $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';
+    global $targetfile;
+
+    if (! isset($_SERVER['argv'])) {
+        header('Content-Type: text/html');
+        header('Content-Disposition: attachment; filename="'.$file.'"');
+        $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';
+    }
     $doc = new DOMDocument();
     @$doc->loadHTML($file);
     $xpath = new DOMXPath($doc);
@@ -120,21 +146,33 @@ function downloadDeck($file)
     );
     foreach ($imgFiles as $img) {
         $source = $img->getAttribute('src');
-        $parts = parse_url($baseUrl);
-        $imgUrl = $parts['scheme'].'://'.$parts['host'];
-        if ($source{0} !== '/') {
-            if (substr($parts['path'], -1) === '/') {
-                $imgUrl .= $parts['path'];
-            } elseif (dirname($parts['path']) === '\\') {
-                $imgUrl .= '/';
-            } else {
-                $imgUrl .= dirname($parts['path']);
+        if (isset($baseUrl)) {
+            $parts = parse_url($baseUrl);
+            $imgUrl = $parts['scheme'].'://'.$parts['host'];
+            if ($source{0} !== '/') {
+                if (substr($parts['path'], -1) === '/') {
+                    $imgUrl .= $parts['path'];
+                } elseif (dirname($parts['path']) === '\\') {
+                    $imgUrl .= '/';
+                } else {
+                    $imgUrl .= dirname($parts['path']);
+                }
             }
+        } else {
+            // no image path rewriting on cli
+            $imgUrl = '';
         }
         $imgUrl .= $source;
         $ext = strtolower(substr($source, strrpos($source, '.') + 1));
         $data = 'data:'.$types[$ext].';base64,'.base64_encode(file_get_contents(str_replace(' ', '%20', $imgUrl)));
         $img->setAttribute('src', $data);
     }
-    echo $doc->saveHTML();
+    if (isset($targetfile)) {
+        // cli
+        file_put_contents($targetfile, $doc->saveHTML());
+        echo "Successfully saved slides to $targetfile\n";
+    } else {die ('ups');
+        // web
+        echo $doc->saveHTML();
+    }
 }
