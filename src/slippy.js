@@ -98,24 +98,36 @@
             $('.slideContent')
                 .height(slideH*0.95)
                 .css('margin', (slideH*0.05).toString() + "px auto 0");
-            $('.slideContent img').each(function() {
-                var ratio, imgWidth, imgHeight;
-                imgWidth = $.data(this, 'origWidth');
-                imgHeight = $.data(this, 'origHeight');
-                if (!imgWidth || !imgHeight) {
-                    imgWidth = $(this).width();
-                    imgHeight = $(this).height();
-                    $.data(this, 'origWidth', imgWidth);
-                    $.data(this, 'origHeight', imgHeight);
-                }
-                if (imgWidth >= imgHeight) {
-                    ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
-                    $(this).css('width',  Math.round(ratio * slideW * 0.9));
-                } else {
-                    ratio = Math.min(imgHeight, options.baseWidth / options.ratio) / (options.baseWidth / options.ratio);
-                    $(this).css('height',  Math.round(ratio * slideH * 0.9));
-                }
-            });
+            if (options.baseWidth) {
+                $('.slideContent img').each(function() {
+                    if ($(this).hasClass('noscale')) return;
+                    var ratio, imgWidth, imgHeight;
+                    imgWidth = $.data(this, 'origWidth');
+                    imgHeight = $.data(this, 'origHeight');
+                    if (!imgWidth || !imgHeight) {
+                        imgWidth = $(this).width();
+                        imgHeight = $(this).height();
+                        $.data(this, 'origWidth', imgWidth);
+                        $.data(this, 'origHeight', imgHeight);
+                    }
+                    if (imgWidth >= imgHeight) {
+                        ratio = Math.min(imgWidth, options.baseWidth) / options.baseWidth;
+                        var target = Math.round(ratio * slideW * 0.9);
+                        if (Math.abs(target - imgWidth) < options.imgScaleTrivial) {
+                            // avoid useless scaling that just makes the image look ugly
+                            target = imgWidth;
+                        }
+                        $(this).css('width',  target);
+                    } else {
+                        ratio = Math.min(imgHeight, options.baseWidth / options.ratio) / (options.baseWidth / options.ratio);
+                        var target = Math.round(ratio * slideH * 0.9);
+                        if (Math.abs(target - imgHeight) < options.imgScaleTrivial) {
+                            target = imgHeight;
+                        }
+                        $(this).css('height',  target);
+                    }
+                });
+            }
             $('.slideContent embed').each(function() {
                 var ratio, imgWidth, newWidth, $el, $parent, $object;
                 $el = $(this);
@@ -432,6 +444,8 @@
                 animLen: 350,
                 // base width for proportional image scaling
                 baseWidth: 620,
+                // do not scale images by less then this to avoid unncessery scaling (in pixels)
+                imgScaleTrivial: 30,
                 // define animation callbacks, they receive a slide dom node to animate
                 animInForward: animInForward,
                 animInRewind: animInRewind,
