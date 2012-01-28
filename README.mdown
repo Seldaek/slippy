@@ -87,13 +87,14 @@ The slippy() call takes an option object, which accepts the following keys:
 
 Server
 ------
+
 The src/ folder contains an index.php that serves slides.
 
 - Put the src folder inside the webroot of a web server
 - Copy config.php.dist to config.php and adjust to point to the folder containing
-    your slides - or just copy/symlink all slides into the src folder. The
-    index.php looks for html files in that folder and shows them, using the
-    header information for title and author.
+  your slides - or just copy/symlink all slides into the src folder. The
+  index.php looks for html files in that folder and shows them, using the
+  header information for title and author.
 
 Exporting self-contained HTML presentations
 -------------------------------------------

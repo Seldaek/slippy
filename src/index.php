@@ -13,7 +13,6 @@
 
 // init
 $file = null;
-$targetfile = null;
 $dir = dirname(__FILE__).'/';
 $repositoryTemplate = 'repo.php';
 if (file_exists($dir.'config.php')) {
@@ -21,32 +20,42 @@ if (file_exists($dir.'config.php')) {
     $dir = rtrim($dir, '/').'/';
 }
 
+// handle CLI mode
 if (PHP_SAPI === 'cli') {
-    if (isset($_SERVER['argv'][1]) && file_exists($_SERVER['argv'][1])) {
-        $file = $_SERVER['argv'][1];
-    } else {
-        die ("USAGE: index.php <name of your slides html file> [<target file>]\n");
+    if (!isset($_SERVER['argv'][1])) {
+        echo "USAGE: index.php <name of your slides html file> [<target file>]\n";
+        exit(1);
+    } elseif (!file_exists($_SERVER['argv'][1])) {
+        echo "File not found: ".$_SERVER['argv'][1]."\n";
+        exit(1);
     }
+
+    $file = $_SERVER['argv'][1];
     if (isset($_SERVER['argv'][2])) {
         $targetfile = $_SERVER['argv'][2];
     } else {
         $targetfile = substr($file, 0, strrpos($file, '.')).'_compiled.html';
     }
+
     if (file_exists($targetfile)) {
-        echo "File $targetfile exists. Do you want to overwrite? Type 'yes' to proceed: ";
-        $handle = fopen ("php://stdin","r");
+        echo "File $targetfile exists. Do you want to overwrite (y/n)? [y]: ";
+        $handle = fopen("php://stdin", "r");
         $line = fgets($handle);
-        if(trim($line) != 'yes'){
-            echo "aborting.\n";
-            exit;
+        if (strtolower(trim($line)) !== 'y' && trim($line) !== '') {
+            echo "Aborting.\n";
+            exit(1);
         }
     }
-} else {
-    // fetch slide deck
-    if (isset($_GET['file'])) {
-        $targetfile = basename($_GET['file']);
-        $file = $dir . $targetfile;
-    }
+
+    $html = compactDeck(cleanDeck($file));
+    file_put_contents($targetfile, $html);
+    echo "Successfully saved slides to $targetfile\n";
+    exit(0);
+}
+
+// fetch slide deck
+if (isset($_GET['file'])) {
+    $file = $dir . basename($_GET['file']);
 }
 
 // list slide decks if none is not found
@@ -58,21 +67,31 @@ if (!file_exists($file) || !is_file($file) || !is_readable($file)) {
     die;
 }
 
-// prepare slide deck content
-$slidehtml = file_get_contents($file);
-$slidehtml = preg_replace_callback('{(<pre[^>]+>)(.+?)(</pre>)}s', 'slippy_recode', $slidehtml);
+$html = cleanDeck($file);
 
-if (PHP_SAPI === 'cli' || isset($_GET['download']) && $_GET['download']) {
-    downloadDeck($slidehtml, $targetfile);
-    die;
+// handle downloads
+if (isset($_GET['download']) && $_GET['download']) {
+    header('Content-Type: text/html');
+    header('Content-Disposition: attachment; filename="'.basename($file).'"');
+    echo compactDeck($html);
+    exit(0);
 }
 
-echo $slidehtml;
+echo $html;
+
+/**
+ * Prepare slide deck content
+ */
+function cleanDeck($file)
+{
+    $html = file_get_contents($file);
+    return preg_replace_callback('{(<pre[^>]+>)(.+?)(</pre>)}s', 'slippyRecode', $html);
+}
 
 /**
  * Strips the leading whitespace off <pre> tags and html encodes them
  */
-function slippy_recode($match)
+function slippyRecode($match)
 {
     $whitespace = preg_replace('#^\r?\n?([ \t]*).*#s', '$1', $match[2]);
     $output = preg_replace('/^'.preg_quote($whitespace, '/').'/m', '', $match[2]);
@@ -113,18 +132,12 @@ function fetchDecksData($decks)
 /**
  * Embeds all dependencies (js, css, images) into a slide deck file and serves it as a download
  *
- * @param string $slidehtml the content of the slides html file
- * @param string $targetfile the target filename, in cli mode to save to, in web mode to propose the browser
+ * @param string $html the content of the slides html file
  */
-function downloadDeck($slidehtml, $targetfile)
+function compactDeck($html)
 {
-    if (PHP_SAPI !== 'cli') {
-        header('Content-Type: text/html');
-        header('Content-Disposition: attachment; filename="'.$targetfile.'"');
-        $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';
-    }
     $doc = new DOMDocument();
-    @$doc->loadHTML($slidehtml);
+    @$doc->loadHTML($html);
     $xpath = new DOMXPath($doc);
     $jsFiles = $xpath->evaluate('//script[@type="text/javascript"][@src!=""]');
     foreach ($jsFiles as $js) {
@@ -150,6 +163,7 @@ function downloadDeck($slidehtml, $targetfile)
     foreach ($imgFiles as $img) {
         $source = $img->getAttribute('src');
         if (PHP_SAPI !== 'cli') {
+            $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';
             $parts = parse_url($baseUrl);
             $imgUrl = $parts['scheme'].'://'.$parts['host'];
             if ($source{0} !== '/') {
@@ -167,15 +181,11 @@ function downloadDeck($slidehtml, $targetfile)
         }
         $imgUrl .= $source;
         $ext = strtolower(substr($source, strrpos($source, '.') + 1));
-        $data = 'data:'.$types[$ext].';base64,'.base64_encode(file_get_contents(str_replace(' ', '%20', $imgUrl)));
-        $img->setAttribute('src', $data);
+        if (isset($types[$ext])) {
+            $data = 'data:'.$types[$ext].';base64,'.base64_encode(file_get_contents(str_replace(' ', '%20', $imgUrl)));
+            $img->setAttribute('src', $data);
+        }
     }
-    if (PHP_SAPI === 'cli') {
-        // cli
-        file_put_contents($targetfile, $doc->saveHTML());
-        echo "Successfully saved slides to $targetfile\n";
-    } else {
-        // web
-        echo $doc->saveHTML();
-    }
+
+    return $doc->saveHTML();
 }
