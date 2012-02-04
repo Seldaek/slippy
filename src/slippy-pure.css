@@ -35,13 +35,13 @@ a.eval {
 
 /** Overview screen */
 .overviewWrapper {
-    -moz-border-radius: .5em;
-    -webkit-border-radius: .5em;
-    border-radius: .5em;
-    border: 0.5px solid #ccc;
+    -moz-border-radius: .25em;
+    -webkit-border-radius: .25em;
+    border-radius: .25em;
+    border: 1px solid #ccc;
 }
 .overviewWrapper.active {
-    border: 0.5px solid #888;
+    border: 1px solid #888;
 }
 .overviewWrapper:hover {
     position: relative;
