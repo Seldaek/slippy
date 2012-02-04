@@ -47,6 +47,23 @@ a.eval {
     left: -100%;
 }
 
+body.slide-background .footer {
+    display: none;
+}
+
+#slippy-slide-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+}
+
+body.overview #slippy-slide-background {
+    display: none;
+}
+
 .layout {
     display:none;
 }
@@ -68,7 +85,6 @@ a.eval {
 
 .overviewWrapper {
     float: left;
-    margin: 2%;
     position: relative;
 }
 

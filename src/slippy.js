@@ -17,7 +17,7 @@
     var slides, curSlide, options, inOverview,
         incrementals, curIncremental = 0,
         // methods
-        buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide, getCurrentSlide,
+        buildSlide, preparePreTags, executeCode, nextSlide, prevSlide, showSlide, setSlide, getCurrentSlide, updateSlideBackground,
         keyboardNav, antiScroll, urlChange, autoSize, clickNav, animInForward, animInRewind, animOutForward, animOutRewind,
         incrementalBefore, incrementalAfter;
 
@@ -157,9 +157,9 @@
 
         resizeOverview = function() {
             $('.overviewWrapper')
-                .height(slideH * 0.13)
-                .width(slideW * 0.15)
-                .css('margin', slideH * 0.05);
+                .height(slideH * 0.2)
+                .width(slideW * 0.2)
+                .css('margin', slideH * 0.02);
         };
 
         centerVertically = function() {
@@ -264,6 +264,22 @@
                 if ($.browser.msie && $.browser.version < 9) { break; }
                 if (inOverview) { break; }
                 slides.wrap($('<div/>').addClass('overviewWrapper'));
+
+                slides.each(function (idx, el) {
+                    var img;
+                    el = $(el);
+                    // mark wrapper as active for active slide
+                    if (el.hasClass('active')) {
+                        el.parent().addClass('active');
+                    }
+
+                    // add slide backgrounds to overview wrappers
+                    if (img = el.data('background')) {
+                        el.parent().css('background', '#000 url("' + img + '") center center no-repeat')
+                            .css('background-size', '100%');
+                    }
+                });
+
                 $('body').removeClass('slide-'+(curSlide+1)).addClass('overview');
                 slides.bind('click.slippyOverview', function (e) {
                     showSlide(slides.index(this));
@@ -424,6 +440,24 @@
         curSlide = num;
         slides.eq(curSlide).addClass('active');
         $('.slideDisplay').text((num+1)+'/'+slides.length);
+        updateSlideBackground();
+    };
+
+    updateSlideBackground = function() {
+        var img;
+        if (img = slides.eq(curSlide).data('background')) {
+            $('<div id="slippy-slide-background"></div>')
+                .prependTo('body')
+                .css('background-size', '100%')
+                .css('background-position', 'center center')
+                .css('background-image', 'url("' + img + '")')
+                .css('background-repeat', 'no-repeat')
+                .css('background-color', '#000')
+            $('body').addClass('slide-background');
+        } else {
+            $('#slippy-slide-background').remove();
+            $('body').removeClass('slide-background');
+        }
     };
 
     getCurrentSlide = function() {
