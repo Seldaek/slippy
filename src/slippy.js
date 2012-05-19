@@ -446,6 +446,7 @@
     updateSlideBackground = function() {
         var img;
         if (img = slides.eq(curSlide).data('background')) {
+            $('#slippy-slide-background').remove();
             $('<div id="slippy-slide-background"></div>')
                 .prependTo('body')
                 .css('background-size', '100%')
