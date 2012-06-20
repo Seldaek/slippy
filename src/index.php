@@ -154,38 +154,52 @@ function compactDeck($html)
         $css->parentNode->replaceChild($node, $css);
     }
     $imgFiles = $xpath->evaluate('//img[@src!=""]');
-    $types = array(
+    $imgAttributes = $xpath->evaluate('//*[@data-background!=""]');
+    foreach ($imgFiles as $img) {
+        $source = $img->getAttribute('src');
+        if ($data = convertImage($source)) {
+            $img->setAttribute('src', $data);
+        }
+    }
+    foreach ($imgAttributes as $img) {
+        $source = $img->getAttribute('data-background');
+        if ($data = convertImage($source)) {
+            $img->setAttribute('data-background', $data);
+        }
+    }
+
+    return $doc->saveHTML();
+}
+
+function convertImage($url)
+{
+    static $types = array(
         'png' => 'image/png',
         'gif' => 'image/gif',
         'jpg' => 'image/jpeg',
         'jpeg' => 'image/jpeg',
     );
-    foreach ($imgFiles as $img) {
-        $source = $img->getAttribute('src');
-        if (PHP_SAPI !== 'cli') {
-            $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';
-            $parts = parse_url($baseUrl);
-            $imgUrl = $parts['scheme'].'://'.$parts['host'];
-            if ($source{0} !== '/') {
-                if (substr($parts['path'], -1) === '/') {
-                    $imgUrl .= $parts['path'];
-                } elseif (dirname($parts['path']) === '\\') {
-                    $imgUrl .= '/';
-                } else {
-                    $imgUrl .= dirname($parts['path']);
-                }
-            }
-        } else {
-            // no image path rewriting on cli
-            $imgUrl = '';
-        }
-        $imgUrl .= $source;
-        $ext = strtolower(substr($source, strrpos($source, '.') + 1));
-        if (isset($types[$ext])) {
-            $data = 'data:'.$types[$ext].';base64,'.base64_encode(file_get_contents(str_replace(' ', '%20', $imgUrl)));
-            $img->setAttribute('src', $data);
-        }
-    }
 
-    return $doc->saveHTML();
+    if (PHP_SAPI !== 'cli') {
+        $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';
+        $parts = parse_url($baseUrl);
+        $imgUrl = $parts['scheme'].'://'.$parts['host'];
+        if ($url{0} !== '/') {
+            if (substr($parts['path'], -1) === '/') {
+                $imgUrl .= $parts['path'];
+            } elseif (dirname($parts['path']) === '\\') {
+                $imgUrl .= '/';
+            } else {
+                $imgUrl .= dirname($parts['path']);
+            }
+        }
+    } else {
+        // no image path rewriting on cli
+        $imgUrl = '';
+    }
+    $imgUrl .= $url;
+    $ext = strtolower(substr($url, strrpos($url, '.') + 1));
+    if (isset($types[$ext])) {
+        return 'data:'.$types[$ext].';base64,'.base64_encode(file_get_contents(str_replace(' ', '%20', $imgUrl)));
+    }
 }
