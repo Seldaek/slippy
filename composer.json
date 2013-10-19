@@ -1,0 +1,12 @@
+{
+    "name": "seld/slippy",
+    "description": "HTML Slides Engine",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Jordi Boggiano",
+            "email": "j.boggiano@seld.be",
+            "homepage": "http://seld.be"
+        }
+    ]
+}
