@@ -439,7 +439,7 @@
         $('body').removeClass('slide-'+(curSlide+1)).addClass('slide-'+(num+1));
         curSlide = num;
         $('body').attr('class', function (idx, cls) {
-            return cls.replace(/(\blayout-\S+)?$/, '') + ' layout-' + (slides.eq(curSlide).data('layout') || 'default');
+            return cls.replace(/\b ?layout-\S+\b/g, '') + ' layout-' + (slides.eq(curSlide).data('layout') || 'default');
         });
         slides.eq(curSlide).addClass('active');
         $('.slideDisplay').text((num+1)+'/'+slides.length);
