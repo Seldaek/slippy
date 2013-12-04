@@ -276,7 +276,7 @@
                     // add slide backgrounds to overview wrappers
                     if (img = el.data('background')) {
                         el.parent().css('background', '#000 url("' + img + '") center center no-repeat')
-                            .css('background-size', '100%');
+                            .css('background-size', 'contain');
                     }
                 });
 
@@ -452,7 +452,7 @@
             $('#slippy-slide-background').remove();
             $('<div id="slippy-slide-background"></div>')
                 .prependTo('body')
-                .css('background-size', '100%')
+                .css('background-size', 'contain')
                 .css('background-position', 'center center')
                 .css('background-image', 'url("' + img + '")')
                 .css('background-repeat', 'no-repeat')
