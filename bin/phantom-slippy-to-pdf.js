@@ -1,13 +1,14 @@
 var viewport, output, delay, renderers = [];
+var system = require('system');
 
 // checks version
-if (phantom.version.major == 1 && phantom.version.minor < 3) {
-    console.log('This script requires PhantomJS v1.3.0+, you have v'+phantom.version.major+'.'+phantom.version.minor+'.'+phantom.version.patch);
+if (phantom.version.major < 2) {
+    console.log('This script requires PhantomJS v2.0+, you have v'+phantom.version.major+'.'+phantom.version.minor+'.'+phantom.version.patch);
     phantom.exit(-1);
 }
 
 // check usage
-if (phantom.args.length !== 2) {
+if (system.args.length !== 3) {
     console.log('Usage: phantom-pdf.js URL dirname');
     phantom.exit(-1);
 }
@@ -15,13 +16,13 @@ if (phantom.args.length !== 2) {
 // settings
 delay = 500;
 viewport = { width: 1024, height: 768 };
-output = phantom.args[1];
+output = system.args[2];
 
 (function init() {
     var i, slides, workers, slidesPerWorker, page;
 
-    page = new WebPage()
-    page.open(phantom.args[0], function (status) {
+    page = require('webpage').create();
+    page.open(system.args[1], function (status) {
         if (status !== 'success') {
             console.log('Unable to load the given URL');
             phantom.exit(-1);
@@ -41,8 +42,8 @@ output = phantom.args[1];
                     page = new WebPage();
                 }
                 page.viewportSize = { width: viewport.width, height: viewport.height };
-                page.paperSize = { width: viewport.width * 1.5, height: viewport.height * 1.5 + 30 };
-                renderers.push(renderer(page, phantom.args[0], i * slidesPerWorker, Math.min(slidesPerWorker, slides)))
+                page.paperSize = { width: viewport.width, height: viewport.height };
+                renderers.push(renderer(page, system.args[1], i * slidesPerWorker, Math.min(slidesPerWorker, slides)))
                 i++;
                 slides -= slidesPerWorker;
             }
