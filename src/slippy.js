@@ -374,13 +374,13 @@
         } else {
             $(el).css({ opacity: 1 });
         }
+        $(el).removeClass('incremental');
     };
 
     nextSlide = function(e) {
         if (curSlide !== -1) {
             if (!incrementals) {
                 incrementals = $('.incremental', slides[curSlide]);
-                incrementals.removeClass('incremental');
                 curIncremental = 0;
             }
             if (incrementals.length > 0) {
@@ -408,6 +408,7 @@
         if (slides[curSlide]) {
             options.animInRewind(slides[curSlide]);
         }
+        incrementals = null;
         $.history.load(curSlide+1);
     };
 
