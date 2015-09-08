@@ -384,9 +384,17 @@
                 curIncremental = 0;
             }
             if (incrementals.length > 0) {
-                incrementalAfter(incrementals[curIncremental]);
-                if (curIncremental++ < incrementals.length) {
-                    return;
+                if (e && e.ctrlKey === true) {
+                    // skip incrementals and go to next
+                } else if (e && e.shiftKey === true) {
+                    incrementals.each(function (idx, el) {
+                        incrementalAfter(el);
+                    });
+                } else {
+                    incrementalAfter(incrementals[curIncremental]);
+                    if (curIncremental++ < incrementals.length) {
+                        return;
+                    }
                 }
             }
             incrementals = null;
