@@ -384,9 +384,7 @@
                 curIncremental = 0;
             }
             if (incrementals.length > 0) {
-                if (e && e.ctrlKey === true) {
-                    // skip incrementals and go to next
-                } else if (e && e.shiftKey === true) {
+                if (e && e.shiftKey === true) {
                     incrementals.each(function (idx, el) {
                         incrementalAfter(el);
                     });
