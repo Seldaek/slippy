@@ -461,9 +461,19 @@
                 .prependTo('body')
                 .css('background-size', 'contain')
                 .css('background-position', 'center center')
-                .css('background-image', 'url("' + img + '")')
                 .css('background-repeat', 'no-repeat')
                 .css('background-color', '#000')
+
+            $('<div id="slippy-slide-background-inner"></div>')
+                .prependTo('#slippy-slide-background')
+                .css('background-size', 'contain')
+                .css('background-position', 'center center')
+                .css('background-image', 'url("' + img + '")')
+                .css('background-repeat', 'no-repeat')
+                .css('width', ($(window).width() / options.backgroundRatio).toString() + 'px')
+                .css('height', '100%')
+                .css('margin', 'auto');
+
             $('body').addClass('slide-background');
         } else {
             $('#slippy-slide-background').remove();
@@ -500,6 +510,8 @@
                 margin: 0.15,
                 // width/height ratio of the slides, defaults to 1.3 (620x476)
                 ratio: 1.3,
+                // width/height ratio of the background images, default to 1 (max screen size)
+                backgroundRatio: 1,
                 incrementalBefore: null,
                 incrementalAfter: null
             };
