@@ -181,7 +181,7 @@ function convertImage($url)
     );
 
     if (PHP_SAPI !== 'cli') {
-        $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].'/index.php';
+        $baseUrl = ($_SERVER['SERVER_PORT'] === 443 ? 'https':'http') .'://'. $_SERVER['HTTP_HOST'].':'.$_SERVER['SERVER_PORT'].'/index.php';
         $parts = parse_url($baseUrl);
         $imgUrl = $parts['scheme'].'://'.$parts['host'];
         if ($url{0} !== '/') {
